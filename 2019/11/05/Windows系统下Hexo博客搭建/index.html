@@ -75,11 +75,14 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wanwan">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;index.html">
+<meta name="description" content="前言Hexo 使一个快速简洁的博客框架，可以非常容易搭建起自己的博客，在平时学习工作中便于及时记录知识要点并分享。本文将记录 Windows 系统下 Hexo 博客搭建的流程，帮助更多人搭建个人博客。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows系统下Hexo博客搭建">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;05&#x2F;Windows%E7%B3%BB%E7%BB%9F%E4%B8%8BHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA&#x2F;index.html">
 <meta property="og:site_name" content="Wanwan">
+<meta property="og:description" content="前言Hexo 使一个快速简洁的博客框架，可以非常容易搭建起自己的博客，在平时学习工作中便于及时记录知识要点并分享。本文将记录 Windows 系统下 Hexo 博客搭建的流程，帮助更多人搭建个人博客。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-05T03:52:32.633Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -110,13 +113,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/11/05/Windows系统下Hexo博客搭建/"/>
 
 
 
 
 
-  <title>Archive | Wanwan</title>
+  <title>Windows系统下Hexo博客搭建 | Wanwan</title>
   
 
 
@@ -145,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -283,111 +286,226 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/05/Windows%E7%B3%BB%E7%BB%9F%E4%B8%8BHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wanwan">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wanwan">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h2 class="post-title" itemprop="name headline">Windows系统下Hexo博客搭建</h2>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-05T11:50:26+08:00">
+                2019-11-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 2 posts in total. Keep on posting.
-      </span>
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Hexo 使一个快速简洁的博客框架，可以非常容易搭建起自己的博客，在平时学习工作中便于及时记录知识要点并分享。本文将记录 Windows 系统下 Hexo 博客搭建的流程，帮助更多人搭建个人博客。</p>
+<a id="more"></a> 
+<h1 id="Hexo-搭建步骤"><a href="#Hexo-搭建步骤" class="headerlink" title="Hexo 搭建步骤"></a>Hexo 搭建步骤</h1><ol>
+<li>安装 Node.js</li>
+<li>安装 Git</li>
+<li>安装 Hexo</li>
+<li>在 Github 中创建个人仓库</li>
+<li>将 Hexo 部署到 Github</li>
+<li>发布文章</li>
+<li>更换 Hexo 主题</li>
+</ol>
+<h2 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h2><p>在  <a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a>  官网，可以下载到最新版本，当前是 12.13.0。具体安装教程可以参考 <a href="Node.js安装及环境配置之Windows篇">Node.js安装及环境配置之Windows篇</a>，需要特别注意环境变量的设置。</p>
+<h2 id="安装-Git"><a href="#安装-Git" class="headerlink" title="安装 Git"></a>安装 Git</h2><p>同样在 <a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Git</a> 官网的下载页面，可以下载 Linux、Windows、mac OS 三个版本的安装包，点击 windows 下载，安装在本地磁盘中。安装完成，点击鼠标右键，若出现 <code>Git GUI Here</code> 和 <code>Git Bash Here</code>，则下载安装成功。<strong>后续操作全部在 Git Bash 下执行。</strong></p>
+<h2 id="安装-Hexo"><a href="#安装-Hexo" class="headerlink" title="安装 Hexo"></a>安装 Hexo</h2><ol>
+<li>首先在任意磁盘新建文件夹 <code>MyBlog</code>，用来统一管理博客。然后在该文件夹下打开 <code>Git Bash</code>，使用命令安装 Hexo，并检查是否安装成功。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm i -g hexo       # 安装 hexo</span><br><span class="line">hexo -v             # 检查 hexo 的版本</span><br></pre></td></tr></table></figure></li>
+<li>启动 Hexo 本地服务，可以得知服务运行在 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 上，我们可以通过该网址在本地访问博客。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure></li>
+<li>创建一篇博客，文章保存在 <code>/MyBlog/source/_posts</code>，博客内容使用 Markdown 语法编写，这里推荐一款专门编写 Hexo 博客的编辑器 <strong>HexoEditor</strong>，<a href="https://github.com/zhuzhuyule/HexoEditor#" target="_blank" rel="noopener">源项目</a> 可以在 Github 上查看，也可以 <a href="https://github.com/zhuzhuyule/HexoEditor/releases" target="_blank" rel="noopener">直接下载</a> 发布版本。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;文章名称&quot;</span><br></pre></td></tr></table></figure></li>
+<li>博客编辑完成后，退回至 <code>/MyBlog</code> 文件夹下，使用命令 <strong>清空</strong> 缓存文件和已经生成的静态文件，然后生成静态文件，从本地进行访问。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean        # 清空缓存</span><br><span class="line">hexo g            # 生成静态文件</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="在-Github-中创建个人仓库"><a href="#在-Github-中创建个人仓库" class="headerlink" title="在 Github 中创建个人仓库"></a>在 Github 中创建个人仓库</h2><ol>
+<li>首先在 Github 上创建一个新仓库，以如下格式命名：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;GitHub_ID&quot;.github.io     # 命名格式</span><br><span class="line">ID-Wanwan.github.io       # 我的github id是 ID-Wanwan，</span><br></pre></td></tr></table></figure></li>
+<li>现在需要将本地博客与 Github 建立关联。在根目录 <code>/MyBlog</code> 下打开 <code>Git Bash</code>，安装插件 hexo-deployer-git。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li>
+<li>根目录中有博客配置文件 <code>_config.yml</code>，用文本编辑器打开配置文件，在 <code># Deployment</code> 下的 <strong>deploy</strong> 属性中添加如下内容：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https://github.com/ID-Wanwan/ID-Wanwan.github.io.git</span><br><span class="line">    branch: master</span><br></pre></td></tr></table></figure>
+其中 repo 是步骤1中 <strong>新建仓库的地址</strong> ，后面再加上 <code>.git</code> 即可。到此本地博客就与 Github 建立了关联，可以进行下一步部署。</li>
+</ol>
+<h2 id="将-Hexo-部署在-Github-上"><a href="#将-Hexo-部署在-Github-上" class="headerlink" title="将 Hexo 部署在 Github 上"></a>将 Hexo 部署在 Github 上</h2><ol>
+<li><p>输入部署命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>发现出现 <code>Erroe: Spawn failed</code>，根据提示，发现需要设置 Github 的邮箱和用户名信息，来帮助辨认身份并登录到远端的个人仓库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;you@example.com&quot;    # 设置 Github 邮箱</span><br><span class="line">git config --global user.name &quot;Your Name&quot;           # 设置 Github 用户名</span><br></pre></td></tr></table></figure>
+<p>重新设置完成后，再次输入部署命令 <code>hexo d</code>，然后输入账号密码登录 Github 。</p>
+</li>
+<li><p>若运行过程中发现如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: RPC failed; curl 56 OpenSSL SSL_read: SSL_ERROR_SYSCALL, errno 10054</span><br></pre></td></tr></table></figure>
+<p>根据查阅资料得知，这是安全设置的问题，解决方式如下：</p>
+<ul>
+<li>首先执行： <code>git config http.sslVerify &quot;false&quot;</code></li>
+<li>若发现如下错误：<code>fatal：not in a git directory</code></li>
+<li>执行：<code>git config --globle http.sslVerify &quot;false&quot;</code></li>
+</ul>
+<p>经过如上步骤，再次部署博客 <code>hexo d</code>，Github 仓库中就有刚才发布的博客了。</p>
+</li>
+<li><p>在浏览器中输入 Github 博客仓库的名称，即可远端访问博客，部署完成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://ID-Wanwan.github.io</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="发布文章"><a href="#发布文章" class="headerlink" title="发布文章"></a>发布文章</h2><ol>
+<li>通过 <code>hexo n &quot;文章名称&quot;</code>，创建一篇新的博客，用文本编辑器编辑文章。</li>
+<li>在本地预览博客发布后的样式。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean                 # 清空缓存 </span><br><span class="line">hexo g                     # 生成静态文件</span><br><span class="line">hexo s                     # 启动本地服务</span><br></pre></td></tr></table></figure></li>
+<li>确认无误后，将博客发布到 Github 平台。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="更换-Hexo-主题"><a href="#更换-Hexo-主题" class="headerlink" title="更换 Hexo 主题"></a>更换 Hexo 主题</h2><ol>
+<li>在 Github 或者 Hexo 官网上寻找自己喜欢的博客主题，这里以在 Github 中下载 <a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">yilia</a> 主题为例。在本地博客根目录 <code>/MyBlog</code> 下打开 <code>Git Bash</code>，可以以如下格式下载主题：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone 主题链接.git themes/主题文件夹              # 参考格式</span><br><span class="line">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia</span><br></pre></td></tr></table></figure></li>
+<li>在 <code>/MyBlog/themes</code> 中可以看到刚才下载好的主题， 退回到根目录 <code>/MyBlog</code>，打开配置文件 <code>_config.yml</code>，在 <strong># Extensions</strong> 下更改 <strong>theme</strong> 的值为主题文件夹的名称。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https://hexo.io/plugins/</span><br><span class="line">## Themes: https://hexo.io/themes/</span><br><span class="line">theme: yilia</span><br></pre></td></tr></table></figure></li>
+<li>更新设置，在本地预览。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean                 # 清空缓存 </span><br><span class="line">hexo g                     # 生成静态文件</span><br><span class="line">hexo s                     # 启动本地服务</span><br></pre></td></tr></table></figure></li>
+<li>确认无误后，部署至 Github 平台，主题更换完成。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>到这里个人博客就已经初步搭建成功，后续可以根据自己的需要更改主题的美化设置，深入探索 Hexo 框架或者其他博客框架的其他内容。</p>
+<h1 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h1><p><a href="https://github.com/zhuzhuyule/HexoEditor" target="_blank" rel="noopener">HexoEditor 快捷键</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-widgets">
         
-        
+
         
 
         
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2019">2019</h2>
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
           </div>
         
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/05/Windows%E7%B3%BB%E7%BB%9F%E4%B8%8BHexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" itemprop="url">
-              
-                <span itemprop="name">Windows系统下Hexo博客搭建</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-05T11:50:26+08:00"
-              content="2019-11-05" >
-          11-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/04/MySQL/" rel="next" title="MySQL">
+                <i class="fa fa-chevron-left"></i> MySQL
+              </a>
+            
+          </div>
 
-        
-        
+          <span class="post-nav-divider"></span>
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/2019/11/04/MySQL/" itemprop="url">
-              
-                <span itemprop="name">MySQL</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-11-04T22:27:07+08:00"
-              content="2019-11-04" >
-          11-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
-    </div>
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -395,6 +513,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zODU3Mi8xNTEwMA=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -415,8 +542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -490,6 +626,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo-搭建步骤"><span class="nav-number">2.</span> <span class="nav-text">Hexo 搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Node-js"><span class="nav-number">2.1.</span> <span class="nav-text">安装 Node.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Git"><span class="nav-number">2.2.</span> <span class="nav-text">安装 Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Hexo"><span class="nav-number">2.3.</span> <span class="nav-text">安装 Hexo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-Github-中创建个人仓库"><span class="nav-number">2.4.</span> <span class="nav-text">在 Github 中创建个人仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将-Hexo-部署在-Github-上"><span class="nav-number">2.5.</span> <span class="nav-text">将 Hexo 部署在 Github 上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布文章"><span class="nav-number">2.6.</span> <span class="nav-text">发布文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换-Hexo-主题"><span class="nav-number">2.7.</span> <span class="nav-text">更换 Hexo 主题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">3.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#书签"><span class="nav-number">4.</span> <span class="nav-text">书签</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -666,6 +818,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -694,6 +850,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1077,26 +1244,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
