@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>计算机网络知识点总结（上） | Wanwan</title><meta name="description" content="计算机网络知识点总结（上）"><meta name="keywords" content="TCP/IP"><meta name="author" content="Wanwan"><meta name="copyright" content="Wanwan"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="计算机网络知识点总结（上）"><meta name="twitter:description" content="计算机网络知识点总结（上）"><meta name="twitter:image" content="https://wx2.sinaimg.cn/mw690/005JTM3Cly1g8vcfk9jd0j30m808w0tx.jpg"><meta property="og:type" content="article"><meta property="og:title" content="计算机网络知识点总结（上）"><meta property="og:url" content="http://yoursite.com/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/"><meta property="og:site_name" content="Wanwan"><meta property="og:description" content="计算机网络知识点总结（上）"><meta property="og:image" content="https://wx2.sinaimg.cn/mw690/005JTM3Cly1g8vcfk9jd0j30m808w0tx.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/"><link rel="prev" title="Mysql基础" href="http://yoursite.com/2019/11/12/Mysql%E5%9F%BA%E7%A1%80/"><link rel="next" title="Java自学路线及书籍推荐" href="http://yoursite.com/2019/11/05/Java%E8%87%AA%E5%AD%A6%E8%B7%AF%E7%BA%BF%E5%8F%8A%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/"><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'true',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: undefined,
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Wanwan</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/" onerror="onerror=null;src='/img/avatar.jpg'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">4</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#前言"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">前言</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#参考书籍"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">参考书籍</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#TCP-IP-协议体系的认知"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">TCP/IP 协议体系的认知</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#数据链路层"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">数据链路层</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#以太网帧格式"><span class="toc_mobile_items-number">4.1.</span> <span class="toc_mobile_items-text">以太网帧格式</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#MTU-最大传输单元"><span class="toc_mobile_items-number">4.2.</span> <span class="toc_mobile_items-text">MTU 最大传输单元</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#ARP-协议"><span class="toc_mobile_items-number">4.3.</span> <span class="toc_mobile_items-text">ARP 协议</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ARP-缓存"><span class="toc_mobile_items-number">4.3.1.</span> <span class="toc_mobile_items-text">ARP 缓存</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ARP-协议解析过程-查询过程"><span class="toc_mobile_items-number">4.3.2.</span> <span class="toc_mobile_items-text">ARP 协议解析过程(查询过程)</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#RARP-协议"><span class="toc_mobile_items-number">4.4.</span> <span class="toc_mobile_items-text">RARP 协议</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#面试题总结"><span class="toc_mobile_items-number">4.5.</span> <span class="toc_mobile_items-text">面试题总结</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#网络层"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">网络层</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#IP-协议"><span class="toc_mobile_items-number">5.1.</span> <span class="toc_mobile_items-text">IP 协议</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#IP-报文首部格式"><span class="toc_mobile_items-number">5.2.</span> <span class="toc_mobile_items-text">IP 报文首部格式</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#IPv4"><span class="toc_mobile_items-number">5.2.1.</span> <span class="toc_mobile_items-text">IPv4</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#IPv6"><span class="toc_mobile_items-number">5.2.2.</span> <span class="toc_mobile_items-text">IPv6</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#IP-分片"><span class="toc_mobile_items-number">5.3.</span> <span class="toc_mobile_items-text">IP 分片</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#IP-选路"><span class="toc_mobile_items-number">5.4.</span> <span class="toc_mobile_items-text">IP 选路</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#IP-层工作流程"><span class="toc_mobile_items-number">5.4.1.</span> <span class="toc_mobile_items-text">IP 层工作流程</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#IP-路由机制"><span class="toc_mobile_items-number">5.4.2.</span> <span class="toc_mobile_items-text">IP 路由机制</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#ICMP-协议"><span class="toc_mobile_items-number">5.5.</span> <span class="toc_mobile_items-text">ICMP 协议</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ICMP报文格式"><span class="toc_mobile_items-number">5.5.1.</span> <span class="toc_mobile_items-text">ICMP报文格式</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#查询报文"><span class="toc_mobile_items-number">5.5.2.</span> <span class="toc_mobile_items-text">查询报文</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#差错报文"><span class="toc_mobile_items-number">5.5.3.</span> <span class="toc_mobile_items-text">差错报文</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#面试题总结-1"><span class="toc_mobile_items-number">5.6.</span> <span class="toc_mobile_items-text">面试题总结</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#书签"><span class="toc_mobile_items-number">6.</span> <span class="toc_mobile_items-text">书签</span></a></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考书籍"><span class="toc-number">2.</span> <span class="toc-text">参考书籍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-IP-协议体系的认知"><span class="toc-number">3.</span> <span class="toc-text">TCP/IP 协议体系的认知</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据链路层"><span class="toc-number">4.</span> <span class="toc-text">数据链路层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#以太网帧格式"><span class="toc-number">4.1.</span> <span class="toc-text">以太网帧格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MTU-最大传输单元"><span class="toc-number">4.2.</span> <span class="toc-text">MTU 最大传输单元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARP-协议"><span class="toc-number">4.3.</span> <span class="toc-text">ARP 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP-缓存"><span class="toc-number">4.3.1.</span> <span class="toc-text">ARP 缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARP-协议解析过程-查询过程"><span class="toc-number">4.3.2.</span> <span class="toc-text">ARP 协议解析过程(查询过程)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RARP-协议"><span class="toc-number">4.4.</span> <span class="toc-text">RARP 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试题总结"><span class="toc-number">4.5.</span> <span class="toc-text">面试题总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络层"><span class="toc-number">5.</span> <span class="toc-text">网络层</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#IP-协议"><span class="toc-number">5.1.</span> <span class="toc-text">IP 协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP-报文首部格式"><span class="toc-number">5.2.</span> <span class="toc-text">IP 报文首部格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IPv4"><span class="toc-number">5.2.1.</span> <span class="toc-text">IPv4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IPv6"><span class="toc-number">5.2.2.</span> <span class="toc-text">IPv6</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP-分片"><span class="toc-number">5.3.</span> <span class="toc-text">IP 分片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IP-选路"><span class="toc-number">5.4.</span> <span class="toc-text">IP 选路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IP-层工作流程"><span class="toc-number">5.4.1.</span> <span class="toc-text">IP 层工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IP-路由机制"><span class="toc-number">5.4.2.</span> <span class="toc-text">IP 路由机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICMP-协议"><span class="toc-number">5.5.</span> <span class="toc-text">ICMP 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ICMP报文格式"><span class="toc-number">5.5.1.</span> <span class="toc-text">ICMP报文格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查询报文"><span class="toc-number">5.5.2.</span> <span class="toc-text">查询报文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#差错报文"><span class="toc-number">5.5.3.</span> <span class="toc-text">差错报文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面试题总结-1"><span class="toc-number">5.6.</span> <span class="toc-text">面试题总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#书签"><span class="toc-number">6.</span> <span class="toc-text">书签</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://q0w584475.bkt.clouddn.com/image/cover/scene.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">计算机网络知识点总结（上）</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-11-09<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-11-16</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span><div class="post-meta-wordcount"><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 在 Java 开发计算机网络部分的知识中，最重要的就是 TCP/IP 协议栈，本文将从 TCP/IP 协议体系的认知开始，详细讲解四层模型的各大协议及相关知识，突破面试。上篇内容为：TCP/IP协议体系、数据链路层、网络层的总结。</p>
+<a id="more"></a>
+
+<h1 id="参考书籍"><a href="#参考书籍" class="headerlink" title="参考书籍"></a>参考书籍</h1><ul>
+<li>TCP/IP 详解 卷1：协议</li>
+<li>计算机网络：自顶而下方法</li>
+</ul>
+<hr>
+<h1 id="TCP-IP-协议体系的认知"><a href="#TCP-IP-协议体系的认知" class="headerlink" title="TCP/IP 协议体系的认知"></a>TCP/IP 协议体系的认知</h1><p>&nbsp;&nbsp; 1. OSI 协议体系：OSI 协议按照功能不同，将互联网自下而上分成七层模型。</p>
+<ul>
+<li><strong>物理层</strong>：利用传输介质，为数据链路层提供物理连接。<ul>
+<li>传送内容为01序列的比特流，传输介质可以是光缆、电缆、双绞线、无线电波。</li>
+<li>数据交换设备：集线器、中继器。</li>
+</ul>
+</li>
+<li><strong>数据链路层</strong>：对物理层的电信号进行分组，解决两个相邻结点之间的通信问题，为网络层提供服务。<ul>
+<li>传送的协议数据单元： <code>数据帧</code>。</li>
+<li>数据交换设备：<ul>
+<li><code>网桥</code>：将两个 LAN 连起来，根据 MAC 地址转发帧。</li>
+<li><code>交换机</code>：识别数据包中的 MAC 地址信息，根据 MAC 地址进行转发，并将这些 MAC 地址与对应的端口记录在自己内部的一个地址表中。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>网络层</strong>：解决如何使数据包通过各结点传输的问题，即通过 <code>路由选择算法</code> 将数据包送往目的地，为传输层提供服务。<ul>
+<li>传送的协议数据单元： <code>数据包</code> 或 <code>分组</code>。</li>
+<li>数据交换设备：<ul>
+<li><code>路由器</code>：路由转发、存储转发。</li>
+<li>交换机</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>传输层</strong>：为上层协议提供 <code>端到端</code> 的可靠和透明的数据传输服务，包括处理差错控制和流量控制等问题。<ul>
+<li>传送的协议数据单元：<code>段</code>。</li>
+<li>数据交换设备：<code>网关</code>，在传输层以上实现网络互连，仅用于两个高层协议不同的网络互连，可以是局域网，也可以是广域网。</li>
+</ul>
+</li>
+<li><strong>会话层</strong>：管理和协调不同主机上何种进程之间的通信(对话)，即负责建立、管理和中止应用程序之间的会话。</li>
+<li><strong>表示层</strong>：处理流经节点的数据编码的表示问题，以保证一个系统应用层发出的信息可被另一系统的应用层读出。</li>
+<li><strong>应用层</strong>：通过应用程序来完成网络用户的应用需求，如文件传输、收发电子邮件等。是用户和网络的接口。<br><img alt="OSI七层协议" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/OSI.png" class="lazyload"><br>
+
+</li>
+</ul>
+<p>&nbsp;&nbsp;2. TCP/IP 协议体系：<br>&nbsp;&nbsp;&nbsp;&nbsp; TCP/IP 协议族是一个四层协议系统，自底而上分别是数据链路层、网络层、传输层、应用层。每一层都用若干协议来实现不同的功能，上层协议使用下层协议提供的服务。</p>
+<ul>
+<li><strong>数据链路层</strong>：负责帧数据的传递，经过数据链路层封装的数据称为帧。<ul>
+<li>常用协议：<code>ARP协议</code>(地址解析协议)、<code>RARP协议</code>(反向地址解析协议)。</li>
+</ul>
+</li>
+<li><strong>网络层</strong>：负责数据传递的方式，实现数据包的选路和转发。<ul>
+<li>常用协议：<code>IP协议</code>、<code>ICMP协议</code>。</li>
+</ul>
+</li>
+<li><strong>传输层</strong>：负责传递数据的控制(准确性、安全性)，为两台主机上的应用程序提供 <code>端到端</code> 的通信，不在乎数据包的中转过程。<ul>
+<li>常用协议：<code>TCP协议</code>、<code>UDP协议</code>。</li>
+</ul>
+</li>
+<li><strong>应用层</strong>：负责数据的展示和获取，如文件传输、名称查询和网络管理等。<ul>
+<li>常用协议：<code>DNS协议</code>、<code>FTP协议</code>、<code>HTTP协议</code>、<code>HTTPS协议</code>。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 数据链路层，在物理层所提供的服务的基础上向网络层提供服务，即将原始的、有差错的物理线路改进成为逻辑上无差错的数据链路，从而向网络层提供高质量的服务。它一般包括 3 种基本服务：无确定的无连接服务、有确定的有连接服务、有确定的无连接服务（不存在无确定的有连接服务）。</p>
+<h2 id="以太网帧格式"><a href="#以太网帧格式" class="headerlink" title="以太网帧格式"></a>以太网帧格式</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 以太网，是一种计算机局域网技术。IEEE 组织的 IEEE 802.3 标准制定了以太网的技术标准，它规定了包括物理层的连线、电子信号和介质访问层协议的内容。它采用 <code>CSMA/CD</code> 媒体接入方法，即带冲突检测的载波侦听多路接入，速率为 <strong>10 Mb/s</strong>，地址为 <strong>48 bit</strong>。分为 经典以太网 和 交换式以太网 两大类。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 由于以太网有很多标准，其数据帧格式也有很多，所以这里以 <strong>IEEE 802.3</strong> 标准来解析以太网帧格式。</p>
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">字段长度(字节)</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">前导码(Preamble)</td>
+<td align="center">7</td>
+<td align="center">同步</td>
+</tr>
+<tr>
+<td align="center">帧开始符(SFD)</td>
+<td align="center">1</td>
+<td align="center">表名下一个字节为目的 MAC 字段</td>
+</tr>
+<tr>
+<td align="center">目的地址(DA)</td>
+<td align="center">6</td>
+<td align="center">目的设备的 MAC 物理地址</td>
+</tr>
+<tr>
+<td align="center">源地址(SA)</td>
+<td align="center">6</td>
+<td align="center">发送设备的 MAC 地址</td>
+</tr>
+<tr>
+<td align="center">长度/类型(Length/Type)</td>
+<td align="center">2</td>
+<td align="center">帧数据字段从长度 / 帧协议类型</td>
+</tr>
+<tr>
+<td align="center">数据及填充(data and pad)</td>
+<td align="center">46 ~ 1500</td>
+<td align="center">帧数据字段，来自高层数据</td>
+</tr>
+<tr>
+<td align="center">帧校验序列(FCS)</td>
+<td align="center">4</td>
+<td align="center">帧数据校验字段，若发生错误，则丢弃此帧</td>
+</tr>
+</tbody></table>
+<p><img alt="以太网帧格式" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/EthernetStruct.png" class="lazyload"><br><br></p>
+<h2 id="MTU-最大传输单元"><a href="#MTU-最大传输单元" class="headerlink" title="MTU 最大传输单元"></a>MTU 最大传输单元</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 以太网帧格式中，帧数据字段的长度被称为最大传输单元，即 <code>MTU</code>。它是指在传输数据过程中允许报文的最大长度，1500字节。<br><img alt="MTU" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/MTU.png" class="lazyload"></p>
+<ol>
+<li><p>MTU 对 <strong>IP协议</strong> 的影响<br>（1）IP报文在超过 MTU 之后需要分片，接收端需要组装。<br>（2）分片若丢失，则接收端会组装失败，IP报文相当于传输失败，但IP协议不负责重新传输数据。<br>（3）由于分片，会加大IP报文丢失的可能性。<br>（4）报文的分片和组装由 IP层 独自完成，加大传输成本，降低性能。</p>
+</li>
+<li><p>MTU 对 <strong>UDP协议</strong> 的影响<br>（1）UDP协议的报头为固定的 20 字节。<br>（2）若 UDP 数据的长度超过 (1500 - 20) 1480 字节，则数据会在网络层分片。<br>（3）数据的分片会加大数据丢失的可能性。</p>
+</li>
+<li><p>MTU 对 <strong>TCP协议</strong> 的影响<br>（1）TCP协议的报头为 20 - 60 字节。<br>（2）若 TCP 报文的总长度超过 1500 字节，则数据同样在网络层会分片。<br>（3）数据分片会加大数据对视的可能性，TCP协议的可靠性降低。</p>
+</li>
+</ol>
+<p>&nbsp;&nbsp; 即由于MTU的存在，对于传输报文长度有限制而导致的分片，会增加数据丢包的可能性，也会降低数据传输的性能，所以在网络中传输数据时尽量将数据的大小控制在不造成分片的最大长度。</p>
+<h2 id="ARP-协议"><a href="#ARP-协议" class="headerlink" title="ARP 协议"></a>ARP 协议</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; ARP协议是 <strong>地址解析协议</strong> 的缩写，由于在以太网环境中，数据传输所依赖的是 MAC 地址而不是 IP 地址，所以将已知 <strong>IP地址</strong> 转化为 <strong>MAC地址</strong> 的工作由 ARP 协议完成。</p>
+<blockquote>
+<p>MAC地址 ：网络中每台设备都有一个唯一的网络标识，这个地址叫 MAC 地址，48 bit，表示为12个16进制数。</p>
+</blockquote>
+<ul>
+<li><strong>ARP 报文格式</strong><br>ARP的请求和应答都是依赖 <code>ARP报文</code> 结构进行的，它放在以太网数据帧中进行发送，下面是 ARP报文 的格式。<br><img alt="ARP报文" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/ARPHead.png" class="lazyload"><br>其在以太网帧结构里封装的格式又为，即以太帧的数据区是ARP请求或响应的报文：<br><img alt="ARP在以太网中的封装" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/ARPInEthernet.png" class="lazyload"><br>在ARP表建立之前，主机并不知道目标的 MAC 地址，所以一开始时只能通过广播的方式将 <code>ARP请求包</code> 发送出去，处于统一局域网的主机都能接收到广播的数据包。</li>
+</ul>
+<h3 id="ARP-缓存"><a href="#ARP-缓存" class="headerlink" title="ARP 缓存"></a>ARP 缓存</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; ARP缓存是一个缓冲区，用来存储 <code>IP地址到MAC地址的映射关系</code> ，每台主机或路由器都在维护着一个ARP缓存表。本质是 &lt;IP, MAC&gt;的对应表，表中一条记录就是网络上一个主机的 IP地址 和其对应的 MAC地址，我们称之为 <code>ARP表项</code>。</p>
+<ul>
+<li><p>ARP缓存表包含一个 <code>寿命值 TTL</code>，也称作生存时间，它将记录每个 ARP表项的生存时间。生存时间到了就会从缓存表中删除。</p>
+</li>
+<li><p>当地址解析协议被询问一个已知 IP地址 结点的 MAC地址 时，先在 <strong>ARP缓存</strong> 中查看，存在则直接返回对应的 MAC地址；不存在，才发送 ARP 请求向局域网查询。</p>
+</li>
+</ul>
+<h3 id="ARP-协议解析过程-查询过程"><a href="#ARP-协议解析过程-查询过程" class="headerlink" title="ARP 协议解析过程(查询过程)"></a>ARP 协议解析过程(查询过程)</h3><ol>
+<li>每台主机都在自己的 ARP缓冲区 ，建立 <code>ARP缓存表</code>，表示IP地址和MAC地址的对应关系。源主机需要发送数据包时，先在 ARP缓存表 中查询，存在则发送，不存在则在局域网内发起 <code>ARP请求</code> 的广播包查询该 MAC地址。</li>
+<li>网络中的 <strong>所有主机</strong> 收到ARP请求后，检查数据包中的IP地址是否和自己的IP地址一致，不相同忽略该数据包；相同则将 <code>发送端的MAC地址和IP地址</code> 添加到自己的ARP缓存表中，已存在则覆盖，然后向 <strong>源主机</strong> 发送一个 <code>ARP响应包</code>，告诉它本机的MAC地址。<br><img alt="ARP请求" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/ARPrequest.png" class="lazyload"></li>
+<li>源主机收到该响应数据包，将 <code>目的主机的MAC地址和IP地址</code> 添加到自己的ARP缓存表中，并利用该信息进行数据传输。如果源主机 <strong>没有收到ARP响应数据包</strong>，则表示查询失败。<br><img alt="ARP响应" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/ARPresponse.png" class="lazyload"></li>
+</ol>
+<h2 id="RARP-协议"><a href="#RARP-协议" class="headerlink" title="RARP 协议"></a>RARP 协议</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>RARP协议</code>，又称反向地址转换协议，可以理解为ARP协议的逆过程，即 <strong>将MAC地址转化为IP地址</strong>。RARP分组的格式和ARP分组基本一致，工作流程也基本一致，这里就不再详细叙述。</p>
+<h2 id="面试题总结"><a href="#面试题总结" class="headerlink" title="面试题总结"></a>面试题总结</h2><ul>
+<li><p>问题1：<strong>ARP的作用</strong>？<br>答：ARP可以将 IP地址 转化为 MAC地址，即为IP地址到对应的硬件地址提供 <code>动态映射</code>。</p>
+</li>
+<li><p>问题2：<strong>点对点链路使用ARP吗？</strong><br>答：不使用，因为点对点链路的通信双方 <code>已获知</code>彼此的IP地址，不需要ARP协议进行转换。</p>
+</li>
+<li><p>问题3：<strong>ARP高效运行的关键是？</strong><br>答：每台主机都维护着一张 <code>ARP缓存表</code>，ARP地址解析时首先查看的是本主机的 ARP缓存表，发现没有时，再向局域网内广播查询。</p>
+</li>
+<li><p>问题4：<strong>ARP报文的各个字段及含义？</strong><br>答：字段如ARP报文结构图，共28字节，记忆方法：<code>以太网先目的后源，ARP先发送端后目的端，先硬件后协议</code>。</p>
+</li>
+<li><p>问题5：<strong>ARP协议有什么弱点？</strong><br>答：（1）缓存：主机的地址映射是基于缓存表，<code>动态更新</code>的，而地址刷新有 <strong>时间限制</strong>。可以通过下次更新之前修改计算机的地址缓存，造成 DDos攻击 或 ARP欺骗。<br>（2）广播：攻击者可以伪装 ARP应答。<br>（3）ARP应答没有认证，都是合法的。可以在不接受请求的时候就发出应答包。</p>
+</li>
+<li><p>问题6：<strong>ARP代理的概念和应用场景</strong><br>答：<code>ARP代理</code>：若ARP请求是从一个网络的主机，发送到 <code>另一个网络的主机</code>，那么连接这个两个网络的<code>路由器</code>就可以回答该请求，该过程是ARP代理。ARP代理路由器响应ARP请求的MAC地址为 <strong>路由器的MAC地址</strong>，而不是ARP请求主机的MAC地址。<br>应用场景：两个物理网络之间的路由，<code>使用相等的网络号</code>，两个路由器使用 ARP 代理，实现相互隐瞒物理网络。</p>
+</li>
+<li><p>问题7：<strong>免费ARP是什么？</strong><br>答：<code>免费ARP</code>：指主机发送 ARP 查找 <strong>自己的IP地址</strong>，即数据链路层 SIP = DIP。<br>作用：（1）确定是否有其他主机设置了与本机相同的IP地址。<br>（2）如果本机更改MAC地址，可以告知其他主机更新ARP缓存表。</p>
+</li>
+</ul>
+<hr>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 网络层实现数据包的选路和转发。WAN(广域网) 通常使用众多分级的路由器来连接分散的主机或 LAN(局域网)，因此，通讯的两台主机 <strong>一般不是直接相连的</strong>，二是通过多个中间结点 (<strong>路由器</strong>)连接。网络层的任务就是选择这些中间结点，确定两台主机之间的通讯路径。</p>
+<h2 id="IP-协议"><a href="#IP-协议" class="headerlink" title="IP 协议"></a>IP 协议</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; IP协议是 TCP/IP协议族 的核心协议，主要包含两个方面： 1. <strong>IP首部格式</strong>。  2. IP数据报的路由和转发，即<strong>IP选路</strong>的实现。 它为上层提供 <code>无状态</code>、<code>无连接</code>、<code>不可靠</code> 的服务。</p>
+<ul>
+<li><strong>无状态</strong>：指IP通信双方 <code>不同步传输数据的状态信息</code>，因此所有IP数据报的发送、传输、接收都是相互独立的。<ul>
+<li>优点：简单、高效，通信时无需分配过多资源。</li>
+<li>缺点：无法处理乱序、重复的IP数据报。</li>
+</ul>
+</li>
+<li><strong>无连接</strong>：指IP通信双方都 <code>不长久地维持双方任何信息</code>，上层协议每次发送数据的时候，都必须明确指定对方的IP地址。</li>
+<li><strong>不可靠</strong>：指IP协议 <code>不能保证IP数据报准确地到达接收端</code>，很多情况都可以导致IP数据报发送失败，而且<strong>IP协议不负责重新传输</strong>。因此，使用IP服务的上层协议需要自己实现数据确认、超时重传等机制以达到可靠传输的目的。</li>
+</ul>
+<h2 id="IP-报文首部格式"><a href="#IP-报文首部格式" class="headerlink" title="IP 报文首部格式"></a>IP 报文首部格式</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 深入剖析IP协议，大部分时间都是深入剖析IP头部协议，因此IP协议可以分为 IPv4 和 IPv6 两大版本来进行分析。</p>
+<h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>IPv4</code>中规定IP地址长度为 <strong>32</strong>， 可提供 $2^{32}$ 个地址，目前已快耗尽。使用地址解析协议 ARP ，其报文首部由 <code>固定部分(20字节) + 可变部分</code> 组成，格式如下，涂色部分需要<strong>重点理解</strong>：<br><img alt="IPv4报文格式" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/IPv4.png" class="lazyload"></p>
+<!-- table th:first-of-type {  width: 150px; } -->
+
+ <style> 
+    table th:last-of-type { width: 500px; } 
+</style> 
+
+
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">位数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">版本号</td>
+<td align="center">4</td>
+<td align="center">通信协议的版本，通信双方的IP协议 <strong>必须一致</strong></td>
+</tr>
+<tr>
+<td align="center">首部长度</td>
+<td align="center">4</td>
+<td align="center">在IPv4中规定地址长度为32位(<strong>4字节</strong>)，IP首部固定20字节，所以4位最大值1111(15)×4 = 60字节。<br>即：<strong>IP首部最长60字节，最短20字节</strong>。首部长度是 4 字节的整数倍，会自动补齐</td>
+</tr>
+<tr>
+<td align="center">服务类型</td>
+<td align="center">8</td>
+<td align="center">无用，自动占8位</td>
+</tr>
+<tr>
+<td align="center">总长度</td>
+<td align="center">16</td>
+<td align="center">IP数据报 <code>首部 + 数据</code> 的字节总长度。最大值 $2^{16}-1 = 65535$，超出部分会分片</td>
+</tr>
+<tr>
+<td align="center"><strong>标识</strong></td>
+<td align="center">16</td>
+<td align="center">IP在存储器中的 <code>IP数据报计数器</code>，每产生一个IP数据报，计数器+1并赋值给标识字段。<br>分片时标识统一复制，重组时相同标识的IP数据报合并</td>
+</tr>
+<tr>
+<td align="center"><strong>标志</strong></td>
+<td align="center">3</td>
+<td align="center">一般<strong>高两位</strong>有用。高位 <strong>MF</strong>：<code>MF=1</code>，表示后续仍有分片，<code>MF=0</code>，表示这是最后一份分片。<br>中间位 <strong>DF</strong>：DF 表示 <code>不能分片</code>，<code>DF=0</code>才能分片</td>
+</tr>
+<tr>
+<td align="center"><strong>片偏移</strong></td>
+<td align="center">13</td>
+<td align="center">分片后，<code>该片在原分组的相对位置</code>，实际偏移为偏移量左移3位(乘8)后得到。<br>基本单位是 <strong>8</strong> 字节，即每个分片长度是 8 字节整数倍，不够填充</td>
+</tr>
+<tr>
+<td align="center"><strong>生存时间 TTL</strong></td>
+<td align="center">8</td>
+<td align="center">即<code>数据报可以经过路由器的数量</code>，最大值位 $2^{8}-1=255$个</td>
+</tr>
+<tr>
+<td align="center">协议</td>
+<td align="center">8</td>
+<td align="center">区分上层协议，ICMP是1，TCP是6，UDP是17</td>
+</tr>
+<tr>
+<td align="center"><strong>首部校验和</strong></td>
+<td align="center">16</td>
+<td align="center">发送端：校验和置0，其他首部数据 <strong>反码相加</strong>，结果放入校验和；<br>接收端：首部数据和校验和 <strong>一起反码相加</strong>，结果为<strong>1</strong>保留数据报，否则丢弃</td>
+</tr>
+<tr>
+<td align="center">IP 源地址</td>
+<td align="center">32</td>
+<td align="center">将网络字节顺序转化位主机字节顺序，即：<strong>每4字节，1&lt;-&gt;4，2&lt;-&gt;3，互换</strong></td>
+</tr>
+<tr>
+<td align="center">目的地址</td>
+<td align="center">32</td>
+<td align="center">转换方法和源IP地址一样</td>
+</tr>
+</tbody></table>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; 和 IPv4 相比，IPv6 将原来的 32 位地址空间增大到 <strong>128</strong> 位，即可以指定 $2^{128}$ 个地址。使用 <code>多点传播 Neighbor Solicitation 消息</code> 取代 ARP 协议，其首部格式变更如下：<br><img alt="IPv6首部格式" data-src="/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/IPv6.png" class="lazyload"></p>
+<table>
+<thead>
+<tr>
+<th align="center">IPv6首部</th>
+<th align="center">IPv4首部</th>
+<th align="center">位数</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">版本</td>
+<td align="center">版本</td>
+<td align="center">4</td>
+<td align="center">IP协议的版本，IPv4为4，IPv6为6</td>
+</tr>
+<tr>
+<td align="center">通信量类</td>
+<td align="center">服务类型</td>
+<td align="center">8</td>
+<td align="center">无用，自动占8位</td>
+</tr>
+<tr>
+<td align="center">流标号</td>
+<td align="center">无</td>
+<td align="center">20</td>
+<td align="center">准备用于服务质量控制，且 <strong>流标号、源地址、目的地址完全一致</strong>，才认为是一个流</td>
+</tr>
+<tr>
+<td align="center">有效载荷长度</td>
+<td align="center">总长度</td>
+<td align="center">16</td>
+<td align="center">IPv6的 <code>扩展首部 + 数据</code> 长度，即有效载荷长度</td>
+</tr>
+<tr>
+<td align="center">下一个首部</td>
+<td align="center">协议</td>
+<td align="center">8</td>
+<td align="center">区分上层协议，通常为TCP或UDP。<strong>有扩展首部时</strong>，表示第一个扩展首部的协议类型</td>
+</tr>
+<tr>
+<td align="center"><strong>跳数限制</strong></td>
+<td align="center"><strong>生存时间TTL</strong></td>
+<td align="center">8</td>
+<td align="center">IP数据报可经过路由的数量，最大为 255 个</td>
+</tr>
+<tr>
+<td align="center"><del>首部长度</del></td>
+<td align="center">首部长度</td>
+<td align="center">0</td>
+<td align="center">IPv6基本首部长度 <strong>固定为40字节</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>扩展首部</strong></td>
+<td align="center"><strong>标识</strong>，<strong>标志</strong>，<strong>片偏移</strong></td>
+<td align="center">0</td>
+<td align="center">IPv6中将这三个字段移至扩展首部中</td>
+</tr>
+<tr>
+<td align="center"><del>可选字段</del></td>
+<td align="center">可选字段</td>
+<td align="center">0</td>
+<td align="center">功能归并在扩展首部</td>
+</tr>
+<tr>
+<td align="center"><del>首部校验和</del></td>
+<td align="center"><strong>首部校验和</strong></td>
+<td align="center">0</td>
+<td align="center"><strong>取消首部校验</strong>，加快路由器对数据报的处理速度。在<strong>数据链路层</strong>，发现差错的帧直接抛弃；<strong>运输层</strong>中，TCP发现差错会重传，UDP发现差错会抛弃。</td>
+</tr>
+</tbody></table>
+<br>
+
+<h2 id="IP-分片"><a href="#IP-分片" class="headerlink" title="IP 分片"></a>IP 分片</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 当IP数据报的长度超过帧的 MTU 时，它将被分片传输。分片可能发生在传输过程的任何一个结点，只有在目的主机上才会将分片重组。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 无论是IPv4协议还是IPv6协议，都在IP首部中提供了IP分片和重组的信息字段：<strong>数据报标识</strong>、<strong>标志</strong>、<strong>片偏移</strong>。IP数据报的每个分片都有自己的IP首部，它们的 <code>标识值相同，片偏移不同</code>，标志位除了最后一个分片为0，其他都为1。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 以太网帧的MTU为 1500 字节，除去IP首部的20字节，剩下 <strong>1480</strong> 字节是IP数据报的数据部分。若现在用其封装一个 <strong>1481</strong> 字节的ICMP报文，由于ICMP首部占用 8 字节，所以数据部分为 1473 字节，那么在传输过程中必须分片：<br><img alt="IP分片" data-src="http://q0w584475.bkt.clouddn.com/Network/IPTakePart.png" class="lazyload"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 1481字节的ICMP报文，需要用 1481 字节的IP数据部分封装，所以需要将其分成 1400 字节和 1 字节 两部分传输。<br><br></p>
+<h2 id="IP-选路"><a href="#IP-选路" class="headerlink" title="IP 选路"></a>IP 选路</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; IP选路，即IP寻路，根据路由表中的记录，来决定当前数据报是<strong>直接交付</strong>（目的地址属于当前网络），还是发往<strong>下一跳路由</strong>（隶属于不同的局域网）。</p>
+<h3 id="IP-层工作流程"><a href="#IP-层工作流程" class="headerlink" title="IP 层工作流程"></a>IP 层工作流程</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; 当IP模块接收到来自数据链路层的IP数据报时，它首先对首部进行 <code>CRC校验</code>，确认无误后开始分析首部信息。<br><img alt="IP模块工作流程" data-src="http://q0w584475.bkt.clouddn.com/Network/IPProcess.png" class="lazyload"><br>&nbsp; 1. 如果该IP数据报的头部设置为 <code>源站选路</code> 选项，则IP模块调用 <code>数据报转发</code> 子模块来处理。</p>
+<p>&nbsp; 2. 如果该数据报中 目的IP地址 是 <code>本机IP地址</code>或是某个广播地址，即数据发给本机，则IP模块根据首部中的 <code>协议字段</code> 来决定将其发送给哪个上层应用（TCP/UDP/ICMP）；如果不是发送给本机，则调用 <code>数据报转发</code> 模块处理。</p>
+<p>&nbsp; 3. 数据报转发子模块首先检查系统是否允许转发，不允许则丢弃该数据报；允许则对其执行一些操作后，交给 <code>IP数据报输出</code> 子模块。</p>
+<p>&nbsp; 4. <strong>IP路由过程</strong>，由 <code>计算下一条路由</code> 模块实现，它指导IP数据报应发往哪个下一条路由（或目标主机），以及经过哪些网卡发送。IP模块实现数据报路由的核心结构是 <strong>路由表</strong>，它按照数据报的 <u>目标IP地址</u> 分类，同一类型的IP数据报被发往相同的下一跳路由器（或目标主机）。</p>
+<p>&nbsp; 5. <code>IP输出队列</code> 中存放所有 <u>等待发送</u> 的IP数据报，其中除了需要转发的IP数据报外，还封装了 <u>本机上层数据</u>（ICMP报文、TCP报文、UDP数据报）的IP数据报。</p>
+<p>&nbsp; 6. 虚线箭头显示了路由表更新的过程。由 <code>路由协议</code> 和 <code>route命令</code> 调整路由表，使之更适应最新的网络拓扑结构，即 <strong>IP路由策略</strong>。</p>
+<h3 id="IP-路由机制"><a href="#IP-路由机制" class="headerlink" title="IP 路由机制"></a>IP 路由机制</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; 要了解IP路由机制，首先要熟悉IP路由表的结构：</p>
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Destination</td>
+<td align="center">目标网络或主机</td>
+</tr>
+<tr>
+<td align="center">Gateway</td>
+<td align="center">网关地址，*表示目标和本机在同一网络中，不需要路由</td>
+</tr>
+<tr>
+<td align="center">Genmask</td>
+<td align="center">网络掩码</td>
+</tr>
+<tr>
+<td align="center">Flags</td>
+<td align="center">路由项的标志，常见标志有5种（其他在route命令的man手册）<br> <strong>U</strong>，该路由项是活动的；<br> <strong>H</strong>，该路由项的目标是一台主机；<br> <strong>G</strong>，该路由项的目标是网关（路由器）；<br> <strong>D</strong>，该路由项是由重定向生成的；<br> <strong>M</strong>，该路由项被重定向修改过；</td>
+</tr>
+<tr>
+<td align="center">Metric</td>
+<td align="center">路由距离，即到达指定网络所需的 <strong>中转数</strong></td>
+</tr>
+<tr>
+<td align="center">Ref</td>
+<td align="center">路由项被引用的次数</td>
+</tr>
+<tr>
+<td align="center">Use</td>
+<td align="center">该路由项被使用的次数</td>
+</tr>
+<tr>
+<td align="center">Iface</td>
+<td align="center">该路由项对应的输出网卡接口</td>
+</tr>
+</tbody></table>
+<p>&nbsp;&nbsp; 其中 <strong>H</strong> 和 <strong>G</strong> 十分重要：</p>
+<ul>
+<li><strong>H</strong>：目的地址是一个完整的<code>主机地址</code>，没有设置表明目的地址是一个<code>网络地址</code>。（子网掩码决定，主机号部分为0）</li>
+<li><strong>G</strong>：区分了间接路由和直接路由。 <code>直接路由</code>，不仅有目标的IP地址，还有其数据链路层地址；<code>简介路由</code>，有目标IP地址，而数据链路层地址是 <strong>网关</strong>。</li>
+</ul>
+<p>&nbsp;&nbsp; <code>IP路由机制</code>，即给定数据报的目标IP地址，它将匹配路由表中的某项记录，找到目标网络或主机的过程。基本查找方法分为三个步骤：<br>&nbsp; 1. 搜索路由表中匹配的<strong>主机IP地址</strong>，未匹配跳转步骤2；<br>&nbsp; 2. 搜索路由表中匹配的<strong>目标网络IP地址</strong>，未匹配跳转步骤3；<br>&nbsp; 3. 选择<strong>默认路由项</strong>，即数据报下一跳路由是网关。<br><br></p>
+<h2 id="ICMP-协议"><a href="#ICMP-协议" class="headerlink" title="ICMP 协议"></a>ICMP 协议</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 由于IP协议不提供可靠的传输，如果丢包，IP协议并不能通知传输层是否丢包及丢包的原因。ICMP协议完成了这种功能：</p>
+<ul>
+<li>确认IP数据报是否成功到达目的地址；</li>
+<li>通知在发送过程中IP数据报被丢弃的原因；</li>
+</ul>
+<p>&nbsp;&nbsp; 需要注意的是，ICMP协议是基于IP协议工作的，它并不是传输层的功能，仍然属于 <code>网络层协议</code>。ICMP <strong>只能搭配IPv4</strong> 使用，如果是 IPv6，需要使用 <strong>ICMPv6</strong>。</p>
+<h3 id="ICMP报文格式"><a href="#ICMP报文格式" class="headerlink" title="ICMP报文格式"></a>ICMP报文格式</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; ICMP报文包含在IP数据报中，IP报文首部在ICMP报文的最前面。一个ICMP报文包括IP首部（至少20字节）、ICMP首部（至少8字节）和ICMP报文（ICMP数据部分）。其中，IP报文的协议字段为 <strong>1</strong> 时，说明这是一个 ICMP报文。<br><img alt="ICMP报文格式" data-src="http://q0w584475.bkt.clouddn.com/Network/ICMP.png" class="lazyload"></p>
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">类型</td>
+<td align="center">8位，标识ICMP报文的类型，1~127是差错报文，128意思是诊断查询报文</td>
+</tr>
+<tr>
+<td align="center">代码</td>
+<td align="center">8位，标识ICMP报文的代码。它与类型字段一起<strong>共同标识</strong>ICMP报文的详细类型</td>
+</tr>
+<tr>
+<td align="center">校验和</td>
+<td align="center">对整个ICMP数据报的校验和，以检验报文在传输过程中是否出现了差错</td>
+</tr>
+</tbody></table>
+<p>ICMP分为两大报文：<code>差错报文</code>，<code>诊断查询报文</code>。类型及含义如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型（十进制）</th>
+<th align="center">内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">回送应答</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">目标不可达</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">原点抑制</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center"><strong>重定向</strong> 或 改变路由</td>
+</tr>
+<tr>
+<td align="center">8</td>
+<td align="center">回送请求</td>
+</tr>
+<tr>
+<td align="center">9</td>
+<td align="center">路由器公告</td>
+</tr>
+<tr>
+<td align="center">10</td>
+<td align="center">路由器请求</td>
+</tr>
+<tr>
+<td align="center">11</td>
+<td align="center">超时</td>
+</tr>
+<tr>
+<td align="center">17</td>
+<td align="center">地址子网请求</td>
+</tr>
+<tr>
+<td align="center">18</td>
+<td align="center">地址子网应答</td>
+</tr>
+<tr>
+<td align="center"><br></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="查询报文"><a href="#查询报文" class="headerlink" title="查询报文"></a>查询报文</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; ICMP查询报文分为两大类：<code>request请求报文</code> 和 <code>reply应答报文</code>，类型 <strong>8</strong> 代表请求，类型 <strong>0</strong> 代表应答，两种报文的代码都为 <strong>0</strong>。</p>
+<p>&nbsp; 1. <strong>时间戳请求和应答</strong><br><img alt="时间戳查询报文" data-src="http://q0w584475.bkt.clouddn.com/Network/TimeStamp.png" class="lazyload"></p>
+<ul>
+<li>原始时间戳：源主机给目的主机<code>发送一个数据报</code>的时间点。</li>
+<li>接收时间戳：目的主机<code>接收</code>源主机发送的数据报的时间点。</li>
+<li>发送时间戳：源主机给目的之际发回 <code>应答报文</code> 的时间点。</li>
+</ul>
+<ul>
+<li>发送时间 = 接收时间戳 - 原始时间戳，源主机给目的主机发送数据报花费的时间。</li>
+<li>接收时间 = 分组返回时间 - 发送时间戳，目的主机发送应答报文给源主机所用时间。</li>
+<li>往返时间 = 发送时间 + 接收时间。<br>
+
+</li>
+</ul>
+<p>&nbsp; 2. <strong>地址掩码请求和应答</strong><br><img alt="地址掩码查询报文" data-src="http://q0w584475.bkt.clouddn.com/Network/AddressMask.png" class="lazyload"><br>&nbsp;&nbsp;&nbsp;&nbsp; 假如主机A知道自己的IP地址，但是不知道子网掩码是多少，主机A就可以通过广播或者组播的形式在网络上发送一个地址掩码请求报文，其他设备收到请求后会发送一个地址掩码回答报文，分两种情况：</p>
+<ul>
+<li>主机A知道找谁请求子网掩码：用 <code>单播</code> 的形式发送地址掩码请求，找<strong>特定主机</strong>请求子网掩码地址。</li>
+<li>主机A不知道找谁请求子网掩码：用 <code>广播</code> 的方式请求同一网段下的主机，<strong>能提供掩码的主机</strong>发送地址掩码应答告诉主机A掩码地址。</li>
+</ul>
+<blockquote>
+<p>地址掩码请求报文中，地址掩码是 <strong>0</strong> 来填充；地址掩码应答报文中，地址掩码是正确的值。</p>
+</blockquote>
+<br>
+
+<p>&nbsp; 3. <strong>路由器询问和通告</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 当主机A给主机B发送数据报时，必须明确数据报在网络中传输的路线，即经过了哪些路由器转发。如果不知道这些，主机A会以 <code>广播</code> 或者 <code>多播</code> 的形式发送一个 <code>ICMP路由器询问和通告报文</code>，向网络中的设备询问数据报在网络中经过的路线，知道路线的路由器发回一个ICMP路由器通告报文。<br><img alt="路由器地址查询报文" data-src="http://q0w584475.bkt.clouddn.com/Network/RouterQuery.png" class="lazyload"></p>
+<ul>
+<li>生存期：路由器发回给源主机的路由信息的有效时间，超过有效时间则失效。</li>
+<li>优先级：地址优先级高的路由器，源主机发送数据报时有很大可能会选择该路线。<br>
+
+</li>
+</ul>
+<h3 id="差错报文"><a href="#差错报文" class="headerlink" title="差错报文"></a>差错报文</h3><p>&nbsp; 1. <strong>目标不可达</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 当路由器发送的数据报不能发送到指定的目的地时，或者不能给数据报找到路由或主机，不能交付数据报时，就<code>丢弃该数据报</code>，然后向发送数据报的源主机发回一个 <code>终点不可达报文</code>。类型标号为 <strong>3</strong>，代码号0-15，表示有16种具体错误原因。<strong>标识符和序列号全用0填充</strong>。<br><img alt="目标不可达报文" data-src="http://q0w584475.bkt.clouddn.com/Network/UnreachablePoint.png" class="lazyload"></p>
+<p>常见的不可到达类型为：</p>
+<ul>
+<li>网络不可达：代码字段为0</li>
+<li>主机不可达：代码字段为1</li>
+<li>协议不可达：代码字段为2</li>
+<li>端口不可达：代码字段为3，目标系统本地没有此服务。<br>
+
+</li>
+</ul>
+<p>&nbsp; 2. <strong>源点抑制</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 源点抑制，是为了弥补IP协议面向无连接，没有流量控制机制而产生的。它为IP报文提供流量监控机制，但是 <code>ICMP源点抑制机制不能控制流量大小，只能根据流量使用情况，给源主机提供一些建议</code>。即：通知数据报在拥塞时被丢弃，并且警告源主机流量出现拥塞，源主机根据该报文做出处理。类型标号 <strong>4</strong>，代码号 <strong>0</strong>。<br><img alt="源点抑制报文" data-src="http://q0w584475.bkt.clouddn.com/Network/SourceQuench.png" class="lazyload"></p>
+<blockquote>
+<p>若路由设备A一直堵塞，则一直会给源主机发送ICMP源点抑制报文，直到设备不再堵塞。</p>
+</blockquote>
+<br>
+
+<p>&nbsp; 3. <strong>超时</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 以下几种情况，会发送ICMP超时报文：</p>
+<ul>
+<li>路由器接收的数据报 <code>TTL生命周期值为0</code>，路由器会舍弃该数据报，向源主机发送ICMP超时报文；</li>
+<li>目标主机在规定时间内 <code>没有收到所有的数据分片</code>，它会把已经收到的所有数据分片丢弃，并想源主机发回ICMP超时报文，防止 <strong>路由环路</strong> 问题出现。<br><img alt="超时报文" data-src="http://q0w584475.bkt.clouddn.com/Network/OverTime.png" class="lazyload"><br>ICMP超时报文，类型值 <strong>11</strong>，代码为 <strong>0</strong> 只能给路由器使用，表示TTL值为0；<br>代码为 <strong>1</strong> 只能给目的主机使用，表示规定时间内目的主机没有收到所有的数据分片。<br>
+
+</li>
+</ul>
+<p>&nbsp; 4. <strong>参数问题</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 数据报在网络中传输时，在IP首部出现<code>任何二义性</code>或<code>首部字段值被修改、缺失</code>，路由器或目的主机发现后就丢弃该数据报，并发回<code>参数问题报文</code>。<br><img alt="参数问题报文" data-src="http://q0w584475.bkt.clouddn.com/Network/ParameterError.png" class="lazyload"><br>参数报文的类型值为 <strong>12</strong>，代码值为 <strong>0</strong> 表示数据报<code>首部字段值被修改</code>；代码值为 <strong>1</strong> 表示数据报在传输中 <code>要求加上可选字段，而未添加</code>。指针指向出错部分。<br><br></p>
+<p>&nbsp; 5. <strong>改变路由（重定向）</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 改变路由报文，是路由器发送给源主机最优传输路径的报文。如主机A和主机B所在网络如下：<br><img alt data-src="http://q0w584475.bkt.clouddn.com/Network/NetWork.png" class="lazyload"><br>&nbsp;&nbsp;&nbsp;&nbsp; 数据报文的传输路线：主机A -&gt; R1 -&gt; R2 -&gt; R3 -&gt; R4 -&gt; 主机B，当报文传输到路由器 <strong>R3</strong> 时，<code>查看自己的路由表</code> 发现下一跳是R4，而<strong>R4的接收端口和发送端口与自己一致</strong>，此时它会<strong>继续</strong>将数据报传输给R4，<strong>同时</strong>给源主机发送ICMP改变路由报文，告知最优路线。即下次传输路线为：主机A -&gt; R1 -&gt; R2 -&gt; R4 -&gt; 主机B。</p>
+<p><img alt="改变路由报文" data-src="http://q0w584475.bkt.clouddn.com/Network/ChangeRouter.png" class="lazyload"><br>改变路由报文的类型值为 <strong>5</strong>，目的路由器的IP地址，即最优路线的IP地址，代码0123含义如下：</p>
+<ul>
+<li>0：对某一个特定网络<strong>路由器</strong>进行改变</li>
+<li>1：对某一特定<strong>主机</strong>进行改变</li>
+<li>2：对指定的服务类型和<strong>网络路由</strong>进行改变</li>
+<li>3：对指定的服务类型和<strong>主机路由</strong>进行改变</li>
+</ul>
+<p>一般来说，主机只能<code>接收</code>ICMP重定向报文，路由器只能<code>发送</code>ICMP重定向报文。<br><br></p>
+<h2 id="面试题总结-1"><a href="#面试题总结-1" class="headerlink" title="面试题总结"></a>面试题总结</h2><ul>
+<li><p>问题1：<strong>如何理解IP的不可靠和无连接？</strong><br>答：不可靠：指的是不能保证数据能成功地到达目的地。发生错误丢弃该数据报，发送ICMP报文给源主机。可靠性由上层提供。<br>无连接：IP不维护关于后续数据报的状态信息，即IP数据报可以不按顺序发送和接收。</p>
+</li>
+<li><p>问题2：<strong>为什么IP首部中要有总长度字段？</strong><br>答：因为一些数据链路（以太网）需要填充一些数据以达到最小长度。因为以太网帧的最小长度是 46 个字节，但是IP长度可能更短，所以需要总长度来确定IP数据部分的内容。 </p>
+</li>
+<li><p>问题3：<strong>IP 首部校验和怎么计算的，与 ICMP，IGMP，TCP，UDP 的首部校验和有什么区别与共同点？</strong><br>答：（1）校验和字段置0；（2）首部每一个进行二进制反码求和；（3）结果存入校验和字段；（4）收到IP数据报后，对首部包括校验和字段进行二进制反码求和；（5）如果结果全为 <strong>1</strong>，表示正确。否则表示错误，丢弃该数据报，交由上层处理。<br>共同点：计算方法一致。<br>区别：IP计算校验和不算校验码，ICMP，IGMP，TCP，UDP同时覆盖首部和数据检验码。</p>
+</li>
+<li><p>问题4：<strong>主机和路由器的本质区别？</strong><br>答：主机从不把数据报从一个接口转发到另一个接口，都是直接传输。路由器需要转发数据报。</p>
+</li>
+<li><p>问题5：<strong>IP的路由选择过程是？</strong><br>答：根据最长匹配原则，找到条目，发送到指定的路由器。如果不能找到，返回一个 “主机不可达” 或 “网络不可达” 的错误。</p>
+</li>
+<li><p>问题6：<strong>IP路由选择的特性是？</strong><br>答：（1）逐跳进行。IP不知道任何目的地址的完整路径，只提供下一跳地址。<br>（2）为一个网络指定一个路由器，而不是为每个主机指定一个路由器。可以缩小路由表规模。</p>
+</li>
+<li><p>问题7：<strong>IP搜索路由表的步骤是？</strong><br>答：搜索匹配主机地址 -&gt; 搜索匹配目的网络地址 -&gt; 搜索默认路由项。</p>
+</li>
+<li><p>问题8：<strong>如果路由表中没有默认路由项，而且也没有找到匹配项，这时该如何处理？</strong><br>答：取决于该IP数据报是由主机产生，还是被转发的。<br>主机产生的，则给发送该数据报的应用程序返回一个差错，”主机不可达” 或 “网络不可达”。<br>被转发的，则给源主机发送 “主机不可达” 的ICMP差错报文。</p>
+</li>
+<li><p>问题9：<strong>IP地址的分类，如何划分？各类地址支持的主机数？</strong><br>答：A类地址：首位 <code>0</code>，  <strong>1</strong>.0.0.1 ~ <strong>126</strong>.255.255.254，主机号 24 位。<br>B类地址：首位 <code>10</code>，  <strong>128</strong>.0.0.1 ~ <strong>191</strong>.255.255.254，主机号 16 位。<br>C类地址：首位 <code>110</code>， <strong>192</strong>.0.0.1 ~ <strong>223</strong>.255.255.254，主机号 8 位。<br>D类地址：首位 <code>1110</code>，<strong>224</strong>.0.0.1 ~ <strong>239</strong>.255.255.254，又称多播地址。<br>E类地址：首位 <code>11110</code>，  <strong>240</strong>.0.0.1 ~ <strong>254</strong>.255.255.254，此类地址是保留地址。</p>
+</li>
+<li><p>问题10：<strong>ICMP的主机不可达报文是在什么情况下发出的？</strong><br>答：三层设备（路由器）给该主机寻路时，没有找到相应路径，向源主机发回ICMP主机不可达差错报文。</p>
+</li>
+<li><p>问题11：<strong>ICMP重定向差错报文是怎么来的？在何种场合出现？</strong><br>答：ICMP重定向差错报文，是为了提示源主机有最优传输路径出现。当主机发送IP数据报给路由器R1时，它会检查它的路由表，发现R2时该数据报的下一跳，当它发送给R2的时候，发现发送的接口和接收的端口一致，因此同时发送一个ICMP重定向报文给主机。</p>
+</li>
+<li><p>问题12：<strong>重定向报文有什么规则？</strong><br>答：重定向报文只能由路由器发送，由主机接收。</p>
+</li>
+</ul>
+<hr>
+<h1 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h1><p><a href="https://www.cnblogs.com/97-5-1/p/7921407.html" target="_blank" rel="noopener">TCP/IP协议族体系结构</a><br><a href="https://blog.csdn.net/ever_peng/article/details/80008638" target="_blank" rel="noopener">ARP协议详解</a><br><a href="https://blog.csdn.net/Sharp_UP/article/details/78149620" target="_blank" rel="noopener">数据链路层：ARP协议详解（绝对经典）</a><br><a href="https://blog.csdn.net/qq_41727218/article/details/82461089" target="_blank" rel="noopener">IP协议详解</a><br><a href="https://blog.csdn.net/qq_42058590/article/details/82918678" target="_blank" rel="noopener">IP协议详解(一)</a><br><a href="https://blog.csdn.net/qq_35733751/article/details/80053091" target="_blank" rel="noopener">11-ICMP差错报告报文</a><br><a href="https://blog.csdn.net/qq_35733751/article/details/80053905" target="_blank" rel="noopener">12-ICMP查询报告报文</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" target="_blank" rel="noopener">Wanwan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/">http://yoursite.com/2019/11/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%8A%EF%BC%89/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">Wanwan</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TCP-IP/">TCP/IP    </a></div><div class="post_share"><div class="social-share" data-image="https://wx2.sinaimg.cn/mw690/005JTM3Cly1g8vcfk9jd0j30m808w0tx.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/11/12/Mysql%E5%9F%BA%E7%A1%80/"><img class="prev_cover lazyload" data-src="http://q0w584475.bkt.clouddn.com/MySQLBasic/cover.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Mysql基础</span></div></a></div><div class="next-post pull_right"><a href="/2019/11/05/Java%E8%87%AA%E5%AD%A6%E8%B7%AF%E7%BA%BF%E5%8F%8A%E4%B9%A6%E7%B1%8D%E6%8E%A8%E8%8D%90/"><img class="next_cover lazyload" data-src="https://wx1.sinaimg.cn/mw690/005JTM3Cly1g8vkx5f4xsj30dw0i4wff.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>Java自学路线及书籍推荐</span></div></a></div></nav></div></div><footer id="footer" style="background-image: url(http://q0w584475.bkt.clouddn.com/image/cover/scene.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2019 By Wanwan</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
