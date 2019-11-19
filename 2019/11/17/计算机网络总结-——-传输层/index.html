@@ -1,0 +1,586 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>计算机网络总结 —— 传输层 | Wanwan</title><meta name="description" content="计算机网络总结 —— 传输层"><meta name="keywords" content="TCP/IP"><meta name="author" content="Wanwan"><meta name="copyright" content="Wanwan"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="计算机网络总结 —— 传输层"><meta name="twitter:description" content="计算机网络总结 —— 传输层"><meta name="twitter:image" content="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/TCPUDP.jpg"><meta property="og:type" content="article"><meta property="og:title" content="计算机网络总结 —— 传输层"><meta property="og:url" content="http://yoursite.com/2019/11/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%BB%E7%BB%93-%E2%80%94%E2%80%94-%E4%BC%A0%E8%BE%93%E5%B1%82/"><meta property="og:site_name" content="Wanwan"><meta property="og:description" content="计算机网络总结 —— 传输层"><meta property="og:image" content="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/TCPUDP.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2019/11/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%BB%E7%BB%93-%E2%80%94%E2%80%94-%E4%BC%A0%E8%BE%93%E5%B1%82/"><link rel="next" title="计算机网络总结 —— 网络层" href="http://yoursite.com/2019/11/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%BB%E7%BB%93-%E2%80%94%E2%80%94-%E7%BD%91%E7%BB%9C%E5%B1%82/"><link rel="dns-prefetch" href="https://www.google-analytics.com"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', '[object Object]', 'auto');
+ga('send', 'pageview');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'true',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: undefined,
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Wanwan</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/" onerror="onerror=null;src='/img/avatar.jpg'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">6</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#前言"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">前言</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#传输层"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">传输层</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#UDP-协议"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">UDP 协议</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#UDP-的首部格式"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">UDP 的首部格式</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#UDP-的应用"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text">UDP 的应用</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#TCP-协议"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">TCP 协议</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#TCP-的首部格式"><span class="toc_mobile_items-number">4.1.</span> <span class="toc_mobile_items-text">TCP 的首部格式</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#TCP-可靠传输机制"><span class="toc_mobile_items-number">4.2.</span> <span class="toc_mobile_items-text">TCP 可靠传输机制</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#TCP-连接控制机制"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">TCP 连接控制机制</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#建立TCP连接：三次握手"><span class="toc_mobile_items-number">5.1.</span> <span class="toc_mobile_items-text">建立TCP连接：三次握手</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#断开TCP连接：四次挥手"><span class="toc_mobile_items-number">5.2.</span> <span class="toc_mobile_items-text">断开TCP连接：四次挥手</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#TCP-连接控制特例：同时打开，同时关闭"><span class="toc_mobile_items-number">5.3.</span> <span class="toc_mobile_items-text">TCP 连接控制特例：同时打开，同时关闭</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#TCP-流量控制机制"><span class="toc_mobile_items-number">6.</span> <span class="toc_mobile_items-text">TCP 流量控制机制</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#ARQ-协议"><span class="toc_mobile_items-number">6.1.</span> <span class="toc_mobile_items-text">ARQ 协议</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#停止等待ARQ协议"><span class="toc_mobile_items-number">6.1.1.</span> <span class="toc_mobile_items-text">停止等待ARQ协议</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#连续ARQ协议"><span class="toc_mobile_items-number">6.1.2.</span> <span class="toc_mobile_items-text">连续ARQ协议</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#滑动窗口协议"><span class="toc_mobile_items-number">6.2.</span> <span class="toc_mobile_items-text">滑动窗口协议</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1bit滑动窗口协议"><span class="toc_mobile_items-number">6.2.1.</span> <span class="toc_mobile_items-text">1bit滑动窗口协议</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#Go-back-N-协议"><span class="toc_mobile_items-number">6.2.2.</span> <span class="toc_mobile_items-text">Go-back-N 协议</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#选择重传协议"><span class="toc_mobile_items-number">6.2.3.</span> <span class="toc_mobile_items-text">选择重传协议</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#总结TCP流量控制"><span class="toc_mobile_items-number">6.3.</span> <span class="toc_mobile_items-text">总结TCP流量控制</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#TCP-拥塞控制"><span class="toc_mobile_items-number">7.</span> <span class="toc_mobile_items-text">TCP 拥塞控制</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#拥塞窗口"><span class="toc_mobile_items-number">7.1.</span> <span class="toc_mobile_items-text">拥塞窗口</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#超时重传机制"><span class="toc_mobile_items-number">7.2.</span> <span class="toc_mobile_items-text">超时重传机制</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#慢开始算法"><span class="toc_mobile_items-number">7.3.</span> <span class="toc_mobile_items-text">慢开始算法</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#拥塞避免算法"><span class="toc_mobile_items-number">7.4.</span> <span class="toc_mobile_items-text">拥塞避免算法</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#快速重传算法"><span class="toc_mobile_items-number">7.5.</span> <span class="toc_mobile_items-text">快速重传算法</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#快速恢复算法"><span class="toc_mobile_items-number">7.6.</span> <span class="toc_mobile_items-text">快速恢复算法</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#TCP-定时器"><span class="toc_mobile_items-number">8.</span> <span class="toc_mobile_items-text">TCP 定时器</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#面试题"><span class="toc_mobile_items-number">9.</span> <span class="toc_mobile_items-text">面试题</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#书签"><span class="toc_mobile_items-number">10.</span> <span class="toc_mobile_items-text">书签</span></a></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#传输层"><span class="toc-number">2.</span> <span class="toc-text">传输层</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#UDP-协议"><span class="toc-number">3.</span> <span class="toc-text">UDP 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UDP-的首部格式"><span class="toc-number">3.1.</span> <span class="toc-text">UDP 的首部格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UDP-的应用"><span class="toc-number">3.2.</span> <span class="toc-text">UDP 的应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-协议"><span class="toc-number">4.</span> <span class="toc-text">TCP 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-的首部格式"><span class="toc-number">4.1.</span> <span class="toc-text">TCP 的首部格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-可靠传输机制"><span class="toc-number">4.2.</span> <span class="toc-text">TCP 可靠传输机制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-连接控制机制"><span class="toc-number">5.</span> <span class="toc-text">TCP 连接控制机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立TCP连接：三次握手"><span class="toc-number">5.1.</span> <span class="toc-text">建立TCP连接：三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#断开TCP连接：四次挥手"><span class="toc-number">5.2.</span> <span class="toc-text">断开TCP连接：四次挥手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-连接控制特例：同时打开，同时关闭"><span class="toc-number">5.3.</span> <span class="toc-text">TCP 连接控制特例：同时打开，同时关闭</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-流量控制机制"><span class="toc-number">6.</span> <span class="toc-text">TCP 流量控制机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ARQ-协议"><span class="toc-number">6.1.</span> <span class="toc-text">ARQ 协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#停止等待ARQ协议"><span class="toc-number">6.1.1.</span> <span class="toc-text">停止等待ARQ协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#连续ARQ协议"><span class="toc-number">6.1.2.</span> <span class="toc-text">连续ARQ协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#滑动窗口协议"><span class="toc-number">6.2.</span> <span class="toc-text">滑动窗口协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1bit滑动窗口协议"><span class="toc-number">6.2.1.</span> <span class="toc-text">1bit滑动窗口协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Go-back-N-协议"><span class="toc-number">6.2.2.</span> <span class="toc-text">Go-back-N 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择重传协议"><span class="toc-number">6.2.3.</span> <span class="toc-text">选择重传协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结TCP流量控制"><span class="toc-number">6.3.</span> <span class="toc-text">总结TCP流量控制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-拥塞控制"><span class="toc-number">7.</span> <span class="toc-text">TCP 拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#拥塞窗口"><span class="toc-number">7.1.</span> <span class="toc-text">拥塞窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#超时重传机制"><span class="toc-number">7.2.</span> <span class="toc-text">超时重传机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#慢开始算法"><span class="toc-number">7.3.</span> <span class="toc-text">慢开始算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拥塞避免算法"><span class="toc-number">7.4.</span> <span class="toc-text">拥塞避免算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速重传算法"><span class="toc-number">7.5.</span> <span class="toc-text">快速重传算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速恢复算法"><span class="toc-number">7.6.</span> <span class="toc-text">快速恢复算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP-定时器"><span class="toc-number">8.</span> <span class="toc-text">TCP 定时器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#面试题"><span class="toc-number">9.</span> <span class="toc-text">面试题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#书签"><span class="toc-number">10.</span> <span class="toc-text">书签</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(http://q0w584475.bkt.clouddn.com/image/cover/scene.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">计算机网络总结 —— 传输层</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-11-17<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-11-19</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span><div class="post-meta-wordcount"><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 网络层篇中介绍了的IP协议和ICMP协议，深度剖析数据报在网络中传输的方式，路由设备如何选择传输结点等内容。其中需要重点学习IP协议中 <strong>IP路由，IP分片</strong> 两大知识点。接下来着重总结OSI协议体系中最关键的内容 <strong>传输层</strong>，以及TCP/IP体系中的另一大支柱 <code>TCP/UDP协议</code>。</p>
+<a id="more"></a>
+
+<hr>
+<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 传输层的作用是实现<code>端到端（进程到进程）</code>的连接，网络层识别IP地址，能够将信息送到正确的主机，而主机应该使用什么协议接收信息，就是由传输层来完成。它是OSI中最关键的一层，负责总体数据传输和数据控制，为会话层高三层提供可靠的传输服务，对网络层提供可靠的目的地址信息。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 传输层的作用如下：</p>
+<ul>
+<li><strong>多路复用和分用</strong>：即传输层能够区分不同进程的数据并加以区分处理。<ul>
+<li>复用：当传输层从<code>应用程序接收报文</code>后，要<code>封装</code>在传输层的<code>段</code>中再交给网络层发送。</li>
+<li>分用：当传输层从<code>网络层接收数据</code>后，必须将数据<code>正确递交</code>给某个应用程序。</li>
+</ul>
+</li>
+<li><strong>可靠数据传输</strong>：TCP协议，提供了面向连接的、可靠的、具有用测控制的数据传输服务，弥补网络层的不足。</li>
+<li><strong>流量控制及拥塞控制</strong><ul>
+<li>流量控制：防止<code>接收端</code>速度太慢造成溢出和丢包，只需要管理端与端之间的流量传输，属于局部控制。</li>
+<li>拥塞控制：监控<code>网络中</code>是否发生拥塞，并做出相应该改变，需要所有路由器和主机一起完成，属于全局控制。</li>
+</ul>
+</li>
+<li><strong>寻址</strong>：需要定位应用程序在哪里。</li>
+</ul>
+<blockquote>
+<p>传输层实现的服务分为两种形式：面向连接的数据传输服务 <code>TCP协议</code> 和 无连接的数据传输服务 <code>UDP协议</code>。</p>
+</blockquote>
+<br>
+
+<h1 id="UDP-协议"><a href="#UDP-协议" class="headerlink" title="UDP 协议"></a>UDP 协议</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; UDP协议是传输层的协议，功能在IP数据报服务的基础上增加了最基本的服务：<strong>复用和分用</strong>、<strong>差错检测</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; UDP协议的<strong>特点</strong>如下：</p>
+<ul>
+<li><code>UDP无连接</code>。时间上，不存在建立连接所需要的时延；空间上，在端系统中<strong>不需要维护链接状态</strong>，无开销。</li>
+<li><code>分组首部开销小</code>。TCP首部 20 字节，UDP首部 8 字节。</li>
+<li><code>UDP没有拥塞控制</code>。网络中的拥塞不会影响主机发送速率，适用于某些可以容忍部分数据丢失，但不能由较大时延的实时应用。</li>
+<li><code>UDP提供不可靠的服务</code>。UDP不保证可靠交付，但是能尽最大努力交付数据，其维护传输可靠性的工作交给 <strong>应用层</strong> 完成。</li>
+<li><code>UDP面向报文传输</code>。应用层交付的报文，添加UDP首部后<strong>直接向下交付</strong>给网络层，不合并也不拆分，保留报文边界。网络层交付的报文，去除首部<strong>直接向上交付</strong>给应用层，报文不分割。</li>
+<li><code>UDP用于一次性传输比较少量数据的网络应用</code>。如DNS、SNMP等，数据可靠传输并非最重要的，是否有较大时延才是最重要的。</li>
+<li><code>UDP支持一对一，一对多，多对多，多对一通信</code>。<br>
+
+</li>
+</ul>
+<h2 id="UDP-的首部格式"><a href="#UDP-的首部格式" class="headerlink" title="UDP 的首部格式"></a>UDP 的首部格式</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; UDP数据报分为 <strong>首部</strong> 和 <strong>用户数据部分</strong>，整个UDP数据报封装在IP数据报的数据部分。UDP首部有 <strong>8</strong> 字节，4 个 <strong>2字节</strong> 字段构成，其报文结构如下：<br><img alt="UDP报文格式" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/UDP.png" class="lazyload"></p>
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">源端口号</td>
+<td align="center">发送端口，需要对方回信时使用，不需要时全 <strong>置0</strong></td>
+</tr>
+<tr>
+<td align="center">目的端口号</td>
+<td align="center">接收端口，在传输终点交付报文时需要用到</td>
+</tr>
+<tr>
+<td align="center">UDP长度</td>
+<td align="center">UDP数据报的长度（<strong>首部+数据</strong>），最小值为 <strong>8</strong>（只有首部）</td>
+</tr>
+<tr>
+<td align="center">校验和</td>
+<td align="center">检测UDP数据报在传输中是否有错，有错则丢弃。可选项，不需要置0</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>UDP校验和计算</strong>：<br>UDP的校验和计算，要计算 <code>伪首部 + UDP首部 + UDP数据部分</code>，伪首部占 <strong>12</strong> 字节。其中UDP长度计算两次，如果检验和有错，UDP数据报被丢弃，不产生任何差错报文。<br><img alt="UDP检验和计算部分" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/UDPCheckSum.png" class="lazyload"></li>
+</ul>
+<br>
+
+<h2 id="UDP-的应用"><a href="#UDP-的应用" class="headerlink" title="UDP 的应用"></a>UDP 的应用</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; UDP协议因其特殊性 ———— <strong>高速传输数据</strong>，在实际工作中被广泛应用，在某些方面有着TCP协议不可比拟的优势。也因为UDP协议的特殊性，使得传输层在处理数据传输时有更多的选择。对可靠性要求高选择TCP协议，对传输率要求高选择UDP协议，二者相辅相成使传输层功能更完善。以下是UDP使用的常见端口：</p>
+<table>
+<thead>
+<tr>
+<th align="center">端口</th>
+<th align="center">协议</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">69</td>
+<td align="center">TFTP</td>
+<td align="center">简单文件传输协议</td>
+</tr>
+<tr>
+<td align="center">53</td>
+<td align="center">DNS</td>
+<td align="center">域名服务</td>
+</tr>
+<tr>
+<td align="center">123</td>
+<td align="center">NTP</td>
+<td align="center">网络时间协议</td>
+</tr>
+<tr>
+<td align="center">111</td>
+<td align="center">RPC</td>
+<td align="center">远程过程调用</td>
+</tr>
+<tr>
+<td align="center">161</td>
+<td align="center">SNMP</td>
+<td align="center">简单邮件传输协议</td>
+</tr>
+</tbody></table>
+<p>综上，UDP使用在 <strong>视频传输、实时通信</strong> 等对实时性要求高，需要告诉传输的领域。UDP不关心发送的数据是否到达目标主机，数据是否出错，它的可靠性全由上层协议来保障。如：QQ语音，QQ视频，直播视频….</p>
+<hr>
+<h1 id="TCP-协议"><a href="#TCP-协议" class="headerlink" title="TCP 协议"></a>TCP 协议</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; TCP协议是为了在主机间实现<code>高可靠性</code>数据交换的传输协议，它面向连接，数据传输之前必须建立连接，数据传输完成后要释放连接，支持多种网络应用程序。主要解决 <strong>可靠、有序、无丢失、不重复</strong> 的传输问题，其特点如下：</p>
+<ul>
+<li><code>TCP面向连接</code>。在通信前需要建立连接，通信结束需要释放连接。</li>
+<li><code>TCP保证可靠性</code>。TCP提供可靠的交付服务，即TCP发送的数据无重复、无丢失、无错误、与发送端顺序一致。</li>
+<li><code>TCP面向字节流传输</code>。TCP的传输单位是 <strong>字节</strong>，虽然在传输过程中数仍然被划分成数据报，但只是为了方便在网络层的传输，接收端最终收到的数据与发送端一致。</li>
+<li><code>TCP提供全双工通信</code>。TCP的两端既可作为发送端，也可作为接收端。</li>
+<li><code>TCP只支持一对一传输</code>。TCP只能提供端到端的通信，一条TCP连接的两端只能有两个端点。</li>
+</ul>
+<br>
+
+<h2 id="TCP-的首部格式"><a href="#TCP-的首部格式" class="headerlink" title="TCP 的首部格式"></a>TCP 的首部格式</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; TCP报文分为数据首部和TCP数据两部分，其首部格式如下:<br><img alt="TCP报文格式" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/TCP.png" class="lazyload"></p>
+<style>
+    table th:last-of-type { width: 500px; } 
+</style>
+
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">长度 / <strong>bit</strong></th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">源端口</td>
+<td align="center">16</td>
+<td align="center">辨识发送连接端口</td>
+</tr>
+<tr>
+<td align="center">目的端口</td>
+<td align="center">16</td>
+<td align="center">辨识接收连接端口</td>
+</tr>
+<tr>
+<td align="center">序列号 <strong>Seq</strong></td>
+<td align="center">32</td>
+<td align="center">当前TCP数据报数据部分的第一个字节的序号</td>
+</tr>
+<tr>
+<td align="center">确认号 <strong>Ack</strong></td>
+<td align="center">32</td>
+<td align="center">期望收到的数据开始序列号，即已经收到的数据字节长度+1。<br>如果含有同步化旗标 SYN，则本序列号+1是第一个数据比特的序列码。<br>如果没有同步化旗标 SYN，则此为第一个数据比特的序列码</td>
+</tr>
+<tr>
+<td align="center">报头长度</td>
+<td align="center">4</td>
+<td align="center">TCP数据报首部的长度</td>
+</tr>
+<tr>
+<td align="center">保留字段</td>
+<td align="center"></td>
+<td align="center"><strong>置0</strong></td>
+</tr>
+<tr>
+<td align="center">URG</td>
+<td align="center">1</td>
+<td align="center">URG=1，表示本数据报的数据部分包含紧急信息，此时紧急指针有效</td>
+</tr>
+<tr>
+<td align="center">ACK</td>
+<td align="center">1</td>
+<td align="center">ACK=1，确认号字段有效。TCP连接建立后所有报文ACK字段都需置1</td>
+</tr>
+<tr>
+<td align="center">PSH</td>
+<td align="center">1</td>
+<td align="center">PSH=1，接收方会立即将数据交付给应用程序，不需要等缓冲区满再提交</td>
+</tr>
+<tr>
+<td align="center">RST</td>
+<td align="center">1</td>
+<td align="center">RST=1，表示TCP连接出现严重问题，必须要释放重新连接</td>
+</tr>
+<tr>
+<td align="center">SYN</td>
+<td align="center">1</td>
+<td align="center">SYN在建立连接时使用。SYN=1，ACK=0，当前报文端是连接请求报文。<br>SYN=1，ACK=1，当前报文端是一个同意建立连接的应答报文</td>
+</tr>
+<tr>
+<td align="center">FIN</td>
+<td align="center">1</td>
+<td align="center">FIN=1，表示此报文段是一个释放连接的请求报文</td>
+</tr>
+<tr>
+<td align="center">窗口</td>
+<td align="center">16</td>
+<td align="center">接收窗口大小，实现TCP流量控制。表示当前接收端接收窗口的剩余容量。<br>发送端将发送窗口调整成该值大小</td>
+</tr>
+<tr>
+<td align="center">检验和</td>
+<td align="center">16</td>
+<td align="center">用于<strong>接收端</strong>检验整个数据报在传输过程中是否出错</td>
+</tr>
+<tr>
+<td align="center">紧急指针</td>
+<td align="center">16</td>
+<td align="center">用于标识紧急数据的尾部</td>
+</tr>
+<tr>
+<td align="center">选项</td>
+<td align="center">\</td>
+<td align="center">当首部长度 &gt; <strong>20</strong> 字节时才有效，最多 <strong>40</strong> 字节</td>
+</tr>
+</tbody></table>
+<br> 
+
+<h2 id="TCP-可靠传输机制"><a href="#TCP-可靠传输机制" class="headerlink" title="TCP 可靠传输机制"></a>TCP 可靠传输机制</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 可靠的传输应该满足两个要求：</p>
+<ul>
+<li>传输的信道不产生差错。         ———— 能够正确地传输数据</li>
+<li>保证传输数据的正确性，无差错、不丢失、不重复、按序到达。   ———— 接收端能及时处理发送端的数据</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; TCP为了提供可靠传输，使用了以下机制实现：</p>
+<ul>
+<li>采用 <code>三次握手</code> 来建立TCP连接，<code>四次挥手</code> 来释放TCP连接，保证建立的传输信道可靠。</li>
+<li>采用 <code>连续ARQ协议</code> （Go-Back-N；超时自动重传）来保证数据传输的正确性。</li>
+<li>采用 <code>滑动窗口协议</code> 来保证接收端能够及时处理接收到的数据，进行 <strong>流量控制</strong>。</li>
+<li>采用 <code>慢开始、拥塞避免、快重传、快恢复</code> 来进行 <strong>拥塞控制</strong>，避免网络拥塞。<br>
+
+</li>
+</ul>
+<h1 id="TCP-连接控制机制"><a href="#TCP-连接控制机制" class="headerlink" title="TCP 连接控制机制"></a>TCP 连接控制机制</h1><h2 id="建立TCP连接：三次握手"><a href="#建立TCP连接：三次握手" class="headerlink" title="建立TCP连接：三次握手"></a>建立TCP连接：三次握手</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; TCP需要三次握手才能在两个进程间建立连接，初始状态发送端，接收端都是 <strong>CLOSED</strong> 状态，建立连接过程如下：<br><img alt="三次握手过程" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/ThreeShakeHands.png" class="lazyload"></p>
+<ul>
+<li><p><strong>第一次握手</strong>：<br>&nbsp;&nbsp; <code>发送端</code>发出建立连接请求报文段，其中 <code>SYN=1，ACK=0，Seq=x</code>，自己进入 <strong>SYN-SENT</strong> （同步已发送）状态，等待确认。<br>&nbsp;&nbsp; 接收端则一直处于 <strong>LISTEN</strong> 状态，等待发送端发来建立连接请求。</p>
+</li>
+<li><p><strong>第二次握手</strong>：<br>&nbsp;&nbsp; <code>接收端</code>收到连接请求报文段后，如果同意建立连接，则向发送端发送确认报文段，其中 <code>SYN=1，ACK=1，Ack=x+1</code>，同时设置自己的初始序列号 <code>Seq=y</code>，进入 <strong>SYN-RCVD</strong> （同步收到）状态，等待发送端确认。</p>
+<blockquote>
+<p>&nbsp;&nbsp; 此时，接收端为该TCP连接分配 TCP缓存和变量（发送端在第三次握手完成后分配），记录了发送端的请求信息，如果没有收到发送端的第三次回话，就会在一段时间内 <strong>缓存TCP信息</strong>，这也是黑客攻击服务器的 <code>SYN洪泛攻击</code>。</p>
+</blockquote>
+</li>
+<li><p><strong>第三次握手</strong>：<br>&nbsp;&nbsp; 发送端收到接收端的确认报文后，再次向接收端回复确认报文段，其中 <code>ACK=1，Seq=x+1，Ack=y+1</code>，然后进入 <strong>ESTABLISHED</strong> （已建立连接）状态。<br>&nbsp;&nbsp; 接收端收到发送端的确认报文后，自己也进入 <strong>ESTABLISHED</strong> （已建立连接）状态。三次握手完成，可以传输数据。</p>
+</li>
+</ul>
+<br>
+
+<ul>
+<li>为什么需要三次握手进行连接？<br>&nbsp;&nbsp; 即为什么发送端还要再次发送确认报文，进行第三次握手？因为这是为了 <strong>防止已失效的请求连接报文段突然又传送到接收端</strong>，从而产生错误，具体情况如下：<ul>
+<li>由于存在超时重传功能，如果发送端发出的报文在传输途中滞留，未到达接收端，发送端会<code>再次发送</code>该报文段；</li>
+<li>若本次发送完成TCP连接断开后，之前滞留的报文段<code>又到达</code>了接收端，接收端以为是发送端发起的新连接请求，于是向发送端发回<code>确认建立连接</code>报文段，进入 <strong>ESTABLISHED</strong> 状态；<br>发送端并未发起该请求，且已断开TCP连接，处于 <strong>CLSOED</strong> 状态。</li>
+<li>而接收端以为新连接已建立，不仅<u>缓存报文中的TCP信息</u>，还一直<u>等待发送端发送数据</u>，造成<strong>资源浪费</strong>。</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h2 id="断开TCP连接：四次挥手"><a href="#断开TCP连接：四次挥手" class="headerlink" title="断开TCP连接：四次挥手"></a>断开TCP连接：四次挥手</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 断开TCP连接需要四个步骤，因此被称为四次挥手。与三次握手相对应，初始状态，假设客户端是发送端，服务端是接收端，初始状态双方都处于 <strong>ESTABLISHED</strong> 状态，等待数据传输完毕，具体过程如下：<br><img alt="四次挥手过程" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/FourWaveHands.png" class="lazyload"></p>
+<ul>
+<li><p><strong>第一次挥手</strong>：<br>&nbsp;&nbsp; <code>客户端</code>首先主动关闭，并向服务端发送释放连接请求报文段，其中 <code>FIN=1，Seq=u</code>，并且自己进入 <strong>FIN-WAIT-1</strong> （终止等待1）状态，等待服务端回应。</p>
+</li>
+<li><p><strong>第二次挥手</strong>：<br>&nbsp;&nbsp; <code>服务端</code>收到释放连接请求报文段后，向客户端发回确认报文段，其中 <code>ACK=1，Seq=v，Ack=u+1</code>，随后进入 <strong>CLOSE-WAIT</strong> （关闭等待）状态。<br>&nbsp;&nbsp; 客户端收到服务端的确认报文段后，进入 <strong>FIN-WAIT-2</strong> （终止等待2）状态，等待服务端发出连接释放报文段。</p>
+<blockquote>
+<p>&nbsp;&nbsp; TCP服务端进程收到客户端的释放连接请求后，应该立即通知上层应用，从客户端到服务端的连接将马上释放，TCP连接处于 <strong>半关闭(half-close)</strong> 状态。此时客户端已经没有数据发送，但是<u>服务端若发送数据，客户端依然接收</u>，这也是为什么第三次挥手是服务端发出。</p>
+</blockquote>
+</li>
+<li><p><strong>第三次挥手</strong>：<br>&nbsp;&nbsp; <code>服务端</code>若已经没有向客户端发送的数据，其应用进程就通知TCP释放连接，服务端向客户端发送释放连接报文段，其中 <code>FIN=1，ACK=1，Seq=w，Ack=u+1</code>，随后进入 <strong>LAST-ACK</strong> （最后确认）状态。</p>
+</li>
+<li><p><strong>第四次挥手</strong>：<br>&nbsp;&nbsp; <code>客户端</code>在收到服务端的释放连接请求报文段后，向其发回确认报文，其中 <code>ACK=1，Seq=u+1，Ack=w+1</code>，随后进入 <strong>TIME-WAIT</strong> （时间等待）状态，经过<code>时间等待计时器</code>设置的时间 <strong>2MSL</strong> 后，才进入 <strong>CLOSED</strong> 状态。<br>&nbsp;&nbsp; 服务端收到客户端的确认报文后，进入 <strong>CLOSED</strong> （关闭）状态。</p>
+</li>
+</ul>
+<br>
+
+<ul>
+<li><p>四次挥手的原因？<br>&nbsp;&nbsp; 四次挥手，可以看作两个两次握手的过程，分别是客户端请求释放连接 和 服务端请求释放连接。由于TCP协议是 <strong>全双工模式</strong>，所以客户端发送释放连接请求报文，只说明客户端已没有数据发送，而它还可以接收服务端的数据传输；所以只有当<u>客户端，服务端都发送释放连接请求</u>时，才能说明双方都没有数据传输，可以结束连接。三次挥手会造成<code>主动关闭那一方</code>的结束报文长时间未得到响应，而超时重传，造成资源浪费。</p>
+</li>
+<li><p>客户端最后一次发送确认报文段后，为什么还需要等待2MSL时间？</p>
+<ul>
+<li>为了 <strong>让服务端能够按照正常步骤进入 CLOSED 状态</strong>。因为最后一次确认报文如果丢失，可以触发超时重传机制，不会让服务端无限等待。</li>
+<li>为了 <strong>防止已失效的请求连接报文段出现在下次连接中</strong>。在等待时间内，本次连接的所有报文都已经从网络中消失，从而不会出现失效的报文出现在下次连接中。</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h2 id="TCP-连接控制特例：同时打开，同时关闭"><a href="#TCP-连接控制特例：同时打开，同时关闭" class="headerlink" title="TCP 连接控制特例：同时打开，同时关闭"></a>TCP 连接控制特例：同时打开，同时关闭</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 上述内容只总结了TCP连接控制中最常见的三次握手和四次挥手方式。但需要再次强调：<strong>TCP是全双工模式</strong>，所以存在客户端和服务端同时执行主动打开并连接对方，或者同时执行主动关闭连接的情况存在，这时的执行流程和平常不同。</p>
+<p>&nbsp; 1. <strong>同时打开</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; <code>同时打开连接</code>，指的是通信双方在收到对方的 <code>SYN</code> 包之前，都进行了主动打开的操作并发出自己的SYN包，即：<strong>双方同时请求对方建立TCP连接</strong>。这种场景在实际情况中比较难发生，因为通信双方必须 <u>同时知道对方的IP地址和端口信息</u> 才可以。<br><img alt="同时建立TCP连接" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/OpenAtTheSameTime.png" class="lazyload"><br>其与常见的三次握手区别如图：</p>
+<ul>
+<li>通信双方都是发送端，也是接收端，我们统称为客户端。它们都执行主动打开操作。</li>
+<li>两端的变化过程都是：<strong>CLOSED -&gt; SYN-SENT -&gt; SYN-RCVD -&gt; ESTABLISHED</strong>。</li>
+<li>建立连接的过程中需要四个数据包的交换，<u>每个数据包都包含SYN</u>，知道SYN收到ACK为止。</li>
+<li>虽然是同时打开连接，但是最终建立的仅有 <strong>一条TCP连接</strong>，而不是两条连接。</li>
+</ul>
+<br>
+
+<p>&nbsp; 2. <strong>同时关闭</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; <code>同时关闭连接</code>，指通信双方在收到对方的 <code>FIN</code> 包之前，都进行了主动关闭的操作，并发出自己的 FIN 包，即：<strong>双方同时请求对方关闭TCP连接</strong>。这个过程相对于同时打开的四个步骤基本相似，需要注意二者的状态变化。<br><img alt="同时关闭TCP连接" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/CloseAtTheSameTime.png" class="lazyload"><br>关闭连接过程如图：</p>
+<ul>
+<li>通信双方都主动执行关闭操作，统称客户端。</li>
+<li>两端的变化都是 <strong>ESTABLISHED -&gt; FIN-WAIT-1 -&gt; CLOSING -&gt; TIME-WAIT -&gt; CLOSED</strong>。与四次挥手相比，状态变化还是有些许不同。</li>
+</ul>
+<br>
+
+<hr>
+<h1 id="TCP-流量控制机制"><a href="#TCP-流量控制机制" class="headerlink" title="TCP 流量控制机制"></a>TCP 流量控制机制</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 三次握手和四次挥手，保证建立的传输信道可靠，而在数据传输过程中，我们也需要采取措施保证数据传输的正确性。<br>&nbsp;&nbsp;&nbsp;&nbsp; 由于双方通信时，发送方的发送速率和接收方的接收速率不一定相等，如果发送方发送过快会导致接收方数据处理不及时，这时无法处理的数据就会存储在缓存区里（失序的数据报也会存在这里）。如果缓冲区已满，而发送方仍然在发送数据，这是接收方只能<strong>将溢出的数据包丢弃</strong>，造成大量丢包，浪费网络资源。<br>&nbsp;&nbsp;&nbsp;&nbsp; 所以需要进行<code>流量控制</code>，即控制发送方的发送速率，使双方处于动态平衡。<code>连续ARQ协议</code> 和 <code>滑动窗口协议</code>，可以通过对接收端的接收窗口大小，来决定发送端的发送速率，从而进行流量控制，保证数据传输的正确性。<br><br></p>
+<h2 id="ARQ-协议"><a href="#ARQ-协议" class="headerlink" title="ARQ 协议"></a>ARQ 协议</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>ARQ协议</code>，即自动重传请求，是OSI模型中数据链路层和传输层的<u>错误纠正协议</u>之一。它通过 <strong>确认</strong>和<strong>超时</strong> 两个机制，在不可靠服务的基础上实现可靠的信息传输。如果发送方在发送一段时间后没有收到ACK确认包，它通常会重新发送。<br>&nbsp;&nbsp;&nbsp;&nbsp; ARQ协议包括 <code>停止等待ARQ协议</code> 和 <code>连续ARQ协议</code>，拥有错误检测，正面确认，超时重传，负面确认及重传机制，TCP协议使用连续ARQ协议。<br><br></p>
+<h3 id="停止等待ARQ协议"><a href="#停止等待ARQ协议" class="headerlink" title="停止等待ARQ协议"></a>停止等待ARQ协议</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; 利用停止等待ARQ协议传输数据的过程中，有以下几种情况发生，由于TCP是全双工模式，所以为了简化理解，只考虑一方发送，一方接收的情况。客户端是发送方，服务端是接收方。</p>
+<p>&nbsp; 1. <strong>无差错情况</strong></p>
+<ul>
+<li>客户端发送数据报文段 M1，发送完 <strong>暂停发送</strong>，等待服务端确认。</li>
+<li>服务端收到报文段 M1，向客户端发送确认报文段。</li>
+<li>客户端收到 M1 的确认报文段后，<strong>再发送下一个报文段</strong>，直到所有报文段依次发送完毕。<br><img alt="传输无差错" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/NoError.png" class="lazyload"></li>
+</ul>
+<p>&nbsp; 2. <strong>出现差错</strong></p>
+<ul>
+<li><p>如果客户端在发送过程中出现差错，接收端在接收 M1 报文段时检测出差错，就 <strong>丢弃报文段 M1，停止操作</strong>，服务端不发送任何信息。</p>
+</li>
+<li><p>客户端等待一段时间后，未收到确认报文段，则认为刚才的报文段丢失并<strong>重新发送</strong>，实现 <code>超时重传</code>。<br><img alt="传输出错" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/OccurError.png" class="lazyload"></p>
+<p>需要注意的是：</p>
+<ul>
+<li>发送方在发送报文段时，必须要保留已发送的<strong>报文段副本</strong>，收到确认报文段后删除。</li>
+<li>发送报文段和确认信息有各自的编号，来标识每一个报文段和确认信息。</li>
+<li>超时计时器的设置时间 &gt; 报文段传送的往返时间。</li>
+</ul>
+<blockquote>
+<p><code>超时重传机制</code> 的原理：发送方发送完报文段后，设置一个 <strong>超时计时器</strong>，在计时器到期之前未收到接收方的确认报文段，就会超时重传；若收到确认报文段，撤销该计时器。</p>
+</blockquote>
+</li>
+</ul>
+<p>&nbsp; 3. <strong>确认丢失和确认延迟</strong><br>&nbsp;&nbsp;&nbsp;&nbsp; 差错不只出现在客户端，服务端也有可能出现，确认丢失和确认延迟就是服务端的确认报文段出现问题导致的。</p>
+<ul>
+<li><p>如果服务端发出的<strong>确认报文段丢失</strong>，那么客户端在超时重传时间内没有收到确认信息，它会重传该报文段。此时服务端会采取两个行动：</p>
+<ul>
+<li>丢弃报文段 M1，不向上层交付。（之前已经接收过 M1 报文段）</li>
+<li>向客户端重新发送确认报文段。（A重发报文段，说明重传时间内没有收到确认信息）</li>
+</ul>
+<p><img alt="确认丢失" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/ACKMiss.png" class="lazyload"></p>
+</li>
+<li><p>如果服务端发出的 <strong>确认报文段延迟</strong>，没有丢失，只是在超时计数器过期后才送达。此时：</p>
+<ul>
+<li>客户端首先启动超时重传，重传 M1 报文段。</li>
+<li>服务端收到重复的 M1，丢弃该报文段，重传确认报文段 M1。</li>
+<li>客户端收到迟延的确认报文M1，接收后 <strong>不做操作</strong>，<u>只有重传确认报文段M1到达后</u>，才发送下一报文段。</li>
+</ul>
+<p><img alt="确认延迟" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/ACKDelay.png" class="lazyload"> </p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 有了确认和超时重传机制，就可以实现在不可靠的网络上实现可靠的传输。但是停止等待ARQ协议仍有缺陷，<strong>信道利用率低</strong>。<br><img alt="传输时延图" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/Channel.png" class="lazyload"></p>
+<table>
+<thead>
+<tr>
+<th align="center">字段</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">TD</td>
+<td align="center">报文段发送的时间</td>
+</tr>
+<tr>
+<td align="center">RTT</td>
+<td align="center">往返时延，发送端的数据报文段发出后开始，到收到确认报文段为止</td>
+</tr>
+<tr>
+<td align="center">TA</td>
+<td align="center">确认报文段发送的时间</td>
+</tr>
+</tbody></table>
+<p> <strong>信道利用率 U = TD / (TD + RTT + TA)</strong><br><br></p>
+<h3 id="连续ARQ协议"><a href="#连续ARQ协议" class="headerlink" title="连续ARQ协议"></a>连续ARQ协议</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>连续ARQ协议</code>，是在停止等待ARQ协议的基础上改进，优化其信道利用率太低的问题。这个协议会<strong>连续发送一组数据包</strong>，然后再等待这些数据包的确认信息ACK。<br><img alt="连续ARQ协议" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/SeriesARQ.png" class="lazyload"><br>&nbsp;&nbsp;&nbsp;&nbsp; 连续ARQ协议通常是与 <code>滑动窗口协议</code> 一起使用的，发送方需要一直维持一个发送窗口，该窗口大小和连续ARQ协议指定的连续发送数据包个数相同：<br><img alt="发送窗口" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/SlideWindow.png" class="lazyload"></p>
+<ul>
+<li>位于发送窗口内的报文段，都可以连续发送出去，不需要等待对方的确认，提高了信道利用率。</li>
+<li>连续ARQ规定，发送方每<u>收到一个确认报文段ACK</u>，就把发送窗口<strong>向前滑动</strong>一个报文段。</li>
+<li>接收方有<code>接收窗口</code>，采用 <strong>累积确认</strong> 的方式接收数据包。在收到几个连续的数据包后，<code>对按序到达的最后一个数据包发送确认信息</code>。</li>
+</ul>
+<p>接收方累积确认机制很容易实现，并且确认包丢失也不用重传，但是缺点是不能正确地告知发送方，接收方已经收到的数据包信息。<br><br></p>
+<h2 id="滑动窗口协议"><a href="#滑动窗口协议" class="headerlink" title="滑动窗口协议"></a>滑动窗口协议</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>滑动窗口协议</code>，是指在发送方和接收方之间<code>各自维持</code>一个滑动窗口，发送方是发送窗口，接收方是接收窗口，该窗口随着时间变化向前滑动。它允许发送方发送多个数据包，不需要等待确认。TCP的滑动窗口以 <strong>字节</strong> 为单位。<br><img alt="发送方和接收方的滑动窗口" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/SlideWindowAgreement.png" class="lazyload"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <strong>滑动窗口规则</strong>：</p>
+<ul>
+<li>凡是已经发送过的数据，在未收到确认之前都必须<code>暂时保留</code>，以便超时重传使用。</li>
+<li>当发送方收到了接收方的确认报文段，发送窗口才能向前滑动。</li>
+<li>发送方发送的数据经过一段时间没有确认(超时计时器控制)，需要使用 <strong>Go-back-N 协议</strong>，回到最后接收到确认号的地方，重新发送数据。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <strong>滑动窗口机制</strong></p>
+<ul>
+<li>1bit滑动窗口协议：发送窗口 = 1，接收窗口 = 1。</li>
+<li>Go-back-N 协议：发送窗口 = k，接收窗口 = 1。</li>
+<li>选择重传协议：发送窗口 &gt; 1，接收窗口 &gt; 1。<br>
+
+</li>
+</ul>
+<h3 id="1bit滑动窗口协议"><a href="#1bit滑动窗口协议" class="headerlink" title="1bit滑动窗口协议"></a>1bit滑动窗口协议</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; 当发送窗口和接收窗口的大小固定为1时，滑动窗口协议退化为 <strong>等待停止ARQ协议</strong>，即发送方发送每一个数据包都要停下来，等待接收方发回确认包后才能继续发送下一个。接收方需要判断收到的数据包是新发的，还是重传的，所以发送方要给每一个数据包添加序号，故称 <code>1bit滑动窗口协议</code>。</p>
+<h3 id="Go-back-N-协议"><a href="#Go-back-N-协议" class="headerlink" title="Go-back-N 协议"></a>Go-back-N 协议</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; Go-back-N 协议，表示需要退回来重传已发送过的N个数据包。发送方连续发送若干个数据包，即使在连续发送过程中收到了接收方发来的应答帧，也可以继续发送。且发送方在每发送完一个数据帧时都要设置超时定时器。只要在所设置的超时时间内仍未收到确认帧，就要重发相应的数据帧。 比如发送5个数据包，中途第3个数据包丢失，此时接收方只能对<strong>前两个</strong>数据包发出确认，而不能确定后三个数据包的下落，所以需要<strong>发送方重新传输</strong>。<br><img alt="Go-back_N协议" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/Go_back_N.png" class="lazyload"></p>
+<h3 id="选择重传协议"><a href="#选择重传协议" class="headerlink" title="选择重传协议"></a>选择重传协议</h3><p>&nbsp;&nbsp;&nbsp;&nbsp; 在 Go-Back-N 协议中，接收方如果发现错误数据包，就不再接收后续数据包，然后通知发送方重传错误数据包之后的所有数据包，这样对后续到达的正确数据包造成浪费。在 <code>选择重传协议</code> 中，如果接收方发现某一个数据包出错，<strong>继续接收后续数据包，放入缓冲区中不提交</strong>，通知发送方重传错误数据包。等到重传数据包到达，将该数据包和缓冲区内的数据包依次交付，但这个方法要求 <u>接收方有足够大的缓冲区</u>。<br><img alt="选择重传协议" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/SelectRetransmit.png" class="lazyload"><br><br></p>
+<h2 id="总结TCP流量控制"><a href="#总结TCP流量控制" class="headerlink" title="总结TCP流量控制"></a>总结TCP流量控制</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 所谓的流量控制就是让发送方的发送速率不要太快，让接收方来得及接受。利用滑动窗口机制可以很方便的在TCP连接上实现对发送方的流量控制。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; TCP的窗口单位是字节，不是报文段，发送方的发送窗口不能超过接收方给出的接收窗口的数值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 只要TCP连接的一方收到对方的零窗口通知，就启动持续计时器，若持续计时器设置的时间到期，就发送一个零窗口探测报文段（仅携带1字节的数据），而对方就在确认这个探测报文段时给出了现在的窗口值。<br><br></p>
+<hr>
+<h1 id="TCP-拥塞控制"><a href="#TCP-拥塞控制" class="headerlink" title="TCP 拥塞控制"></a>TCP 拥塞控制</h1><p>&nbsp;&nbsp;&nbsp;&nbsp; 在某段时间内，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络的性能就要变化，这种情况就叫 <code>拥塞</code>。当网络发生拥塞时，会出现数据丢失，时延下降，吞吐量下降，甚至”拥塞崩溃”等情况。<br>&nbsp;&nbsp;&nbsp;&nbsp; <code>拥塞控制</code>，指为了防止过多的数据注入到网络中，避免出现网络负载过大的情况。它作用于 <strong>整个网络</strong>，通常就是 <u>对发送方拥塞窗口cwnd的调整</u>。TCP采用拥塞控制的四种算法：<strong>慢开始、拥塞避免、快重传、快恢复</strong>。<br><br></p>
+<h2 id="拥塞窗口"><a href="#拥塞窗口" class="headerlink" title="拥塞窗口"></a>拥塞窗口</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 发送报文段速率的确定，既要根据接收方的接受能力，又要从全局考虑不要使网络发生拥塞，所以需要接收窗口和拥塞窗口两个状态量决定，<strong>单位是字节</strong>。<br>&nbsp;&nbsp;&nbsp;&nbsp; <code>接收窗口</code>，接收方根据当前<u>接收缓存区的大小</u>更新窗口值，是来自接收方的流量控制。<br>&nbsp;&nbsp;&nbsp;&nbsp; <code>拥塞窗口</code>，发送方根据自己所估计的<u>网络拥塞程度</u>更新窗口值，是来自发送方的流量控制。即发送方的发送窗口。<br><br></p>
+<h2 id="超时重传机制"><a href="#超时重传机制" class="headerlink" title="超时重传机制"></a>超时重传机制</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 超时重传，指的是发送方在发送一个数据包后，<strong>开启一个计时器</strong>，在一定时间内没有收到接收方的 <strong>ACK确认恢复包</strong>，认为该数据包丢失并重新发送，直到发送成功为止。该等待时间被称为 <code>RTO</code>。<br><br></p>
+<h2 id="慢开始算法"><a href="#慢开始算法" class="headerlink" title="慢开始算法"></a>慢开始算法</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>当TCP连接刚建立或连接超时，进入慢开始阶段</code>。算法思路是：初始状态不发送大量数据，先探测网络的拥塞程度，再由小到大逐渐增大拥塞窗口大小。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 新建TCP连接时，发送方的拥塞窗口被初始化为 <strong>1</strong> 个数据包大小（<strong>字节</strong>），按照其大小发送数据，每收到一个 ACK 确认包就增加数据包发送量，其中拥塞窗口随RTT呈 <code>指数级</code> 增长。即：<strong>每经过一次传输，拥塞窗口就加倍增大</strong>。但为了防止拥塞窗口的增长引起网络拥塞，发送方还需要维持另一个变量：<code>慢开始门限 ssthresh</code>。</p>
+<ul>
+<li>拥塞窗口 &lt; 慢开始门限：使用 慢开始算法。</li>
+<li>拥塞窗口 &gt; 慢开始门限：使用 拥塞避免算法。</li>
+<li>拥塞窗口 = 慢开始门限：使用 慢开始算法或拥塞避免算法。</li>
+</ul>
+<p><img alt="慢开始算法" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/SlowlyStart.png" class="lazyload"></p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;  慢开始算法的作用：将拥塞窗口按指数级从小扩大，避免一开始就向网络中注入过多数据包导致拥塞；在拥塞窗口慢慢增大的过程中，如果发现拥塞，可以及时降低发送速度，从而减缓网络拥塞。</p>
+</blockquote>
+<br>
+
+<h2 id="拥塞避免算法"><a href="#拥塞避免算法" class="headerlink" title="拥塞避免算法"></a>拥塞避免算法</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; <code>当TCP发送方发现超时，或者收到 **3** 个相同的ACK确认包</code>，即认为网络即将发生拥塞，此时进入拥塞避免阶段。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 拥塞避免算法让拥塞窗口缓慢增长，即每经过一个往返时间RTT，发送方的 <strong>拥塞窗口cwnd加1</strong>，而不是加倍，<code>加法增加</code>。拥塞窗口变化过程如下：</p>
+<ul>
+<li>在拥塞避免阶段，慢开始门限是拥塞窗口的一半： ssthresh = cwnd / 2，即 <code>乘法减小</code>。</li>
+<li>当发生<strong>超时</strong>，cwnd = 1，此时：<ul>
+<li>若 cwnd &lt; ssthresh，TCP重新进入 <u>慢开始过程</u>。</li>
+<li>若 cwnd &gt;= ssthresh，则执行 拥塞避免算法。</li>
+</ul>
+</li>
+<li>即：拥塞窗口cwnd每次收到 <strong>1</strong> 个ACK确认包，只增加 <strong>1 / cwnd</strong> 个数据包大小。</li>
+</ul>
+<blockquote>
+<p>拥塞避免算法的作用：使拥塞窗口以线性方式增长，非指数级增长，使得网络更不容易拥塞。</p>
+</blockquote>
+<br>
+**慢开始算法和拥塞避免算法**，又称 `加法增大乘法减小算法`。
+* 加法增大：指的是拥塞避免算法，使拥塞窗口以线性方式增长。
+* 乘法减小：指不管是慢开始算法，还是拥塞避免算法，只要判断网络发生拥塞(没有收到ACK)，慢开始门限 ssthresh 会变成当前拥塞窗口 cwnd 的一半，并且把拥塞窗口设为 1 ，执行慢开始算法。
+
+<p><img alt data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/SlowlyStartAndCongestionAvoidance.jpg" class="lazyload"><br><br></p>
+<h2 id="快速重传算法"><a href="#快速重传算法" class="headerlink" title="快速重传算法"></a>快速重传算法</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 在拥塞避免阶段，当数据包超时时，拥塞窗口大小被置为1，重新进入慢启动阶段，这回导致过大减少发送窗口而降低TCP连接的吞吐量，所以引入了快速重传和快速恢复机制。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; 快速重传，要求接收方在收到一个失序的报文段后就立即发出重复确认，目的是让发送方及早知道接收方有报文段未收到，而不要等到自己发送数据时捎带确认。<br>&nbsp;&nbsp;&nbsp;&nbsp; 算法规定：发送方只要<strong>一连收到 3 个重复确认包</strong>，就判定数据包丢失，立即重传丢失的包，而不必等待重传计时器过期。步骤如下：</p>
+<ul>
+<li>慢开始门限 ssthresh 设置为 cwnd 的一半。</li>
+<li>cwnd 设置为 ssthresh 的值（具体实现有的为 ssthresh + 3）。</li>
+<li>重新进入 <strong>拥塞避免阶段</strong>。</li>
+</ul>
+<p><img alt="快速重传" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/QuickResent.png" class="lazyload"><br>&nbsp;&nbsp;&nbsp;&nbsp; 如图，接收方接收到 M2 后发回ACK确认包，M3 在中途丢失，所以即使收到M4，M5，M6 <strong>也不能确认后续报文到达</strong>。本来接收方可以什么也不做，也可以发送对 M2 的确认，快速重传机制要求接收方必须重发ACK确认包，这样发送方连续收到3个后就会立即重传，避免阻塞，提高网络吞吐量。<br><br></p>
+<h2 id="快速恢复算法"><a href="#快速恢复算法" class="headerlink" title="快速恢复算法"></a>快速恢复算法</h2><p>&nbsp;&nbsp;&nbsp;&nbsp; 快速恢复算法，一般与快速重传算法一起使用。快速恢复算法认为，当发送方收到3个重复的ACK确认包时，TCP不会立即进入拥塞避免阶段，而是进入<strong>快速恢复阶段</strong>。<br>&nbsp;&nbsp;&nbsp;&nbsp; 其算法思想是：<code>数据包守恒</code> 守则，即同一时刻在网络中的数据包数量是恒定的，<u>只有当旧数据包离开网络，才能发送新数据包</u>。如果发送方收到一个重复的ACK确认包，那么根据TCP的ACK机制就表明有一个数据包离开了网络，于是 <strong>cwnd+1</strong>。拥塞控制的目的，就是修正违反该原则的地方。算法步骤如下：</p>
+<ul>
+<li>收到3个重复ACK确认包，执行 “<strong>乘法减小</strong>“，慢开始门限 ssthresh 设置为 cwnd 的一半。</li>
+<li>cwnd 设置为 <strong>ssthresh + 3</strong>，然后重传丢失的报文段。（+3是因为收到了3个重复ACK包，有3个旧数据包离开网络）</li>
+<li>再收到重复的ACK确认包，拥塞窗口 <strong>cwnd + 1</strong>。</li>
+<li>当收到新数据包的ACK确认包，cwnd的值设置为执行乘法减小后ssthresh的值，进入<strong>拥塞避免状态</strong>。（丢失数据已收到，恢复过程结束）</li>
+</ul>
+<p><img alt="快速恢复算法" data-src="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/QuickRecovery.png" class="lazyload"><br><br></p>
+<hr>
+<h1 id="TCP-定时器"><a href="#TCP-定时器" class="headerlink" title="TCP 定时器"></a>TCP 定时器</h1><table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">时间</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">建立连接定时器</td>
+<td align="center">3s</td>
+<td align="center">建立TCP连接时，发送方发送SYN时使用</td>
+</tr>
+<tr>
+<td align="center">重传定时器</td>
+<td align="center">TCP发送数据时设定</td>
+<td align="center">在计时器超时后没有收到返回的确认ACK，发送端就会重新发送队列中需要重传的报文段</td>
+</tr>
+<tr>
+<td align="center">延迟应答定时器</td>
+<td align="center">&gt; 200ms</td>
+<td align="center">接收方收到数据包后，等待一段时间再发送ACK确认包，若接收方有数据发送可以和ACK一起发回</td>
+</tr>
+<tr>
+<td align="center">坚持定时器</td>
+<td align="center">&lt;= 60s</td>
+<td align="center">当发送方收到接收方 <strong>0窗口</strong> 确认时启动，用来发送探测报文段，确认接收窗口是否增大，再重传数据包</td>
+</tr>
+<tr>
+<td align="center">保活定时器</td>
+<td align="center">2h</td>
+<td align="center">接收方没收到数据包，就将该定时器复位。若超过2小时没有数据传输，则发送探测报文段(间隔75s)；若连发10个探测报文段还没有收到数据包，则中止连接。缺陷明显，<strong>建议自己实现心跳包</strong></td>
+</tr>
+<tr>
+<td align="center">FIN_WAIT_2 定时器</td>
+<td align="center">TCP断开连接时设定</td>
+<td align="center">主动关闭的一方收到对方的确认报文段后启动，如果对方仍未发送请求断开数据包FIN，则释放连接</td>
+</tr>
+<tr>
+<td align="center">TIME_WAIT 定时器</td>
+<td align="center">2MSL</td>
+<td align="center">为了让接收方能够按照正常步骤进入 CLOSED 状态。为了防止已失效的请求连接报文段出现在下次连接中</td>
+</tr>
+</tbody></table>
+<br>
+
+<hr>
+<h1 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h1><ul>
+<li><p>问题1：<strong>UDP和TCP的简单介绍</strong><br>答：UDP是一个简单的面向数据报的运输层协议：进程的每个输出操作都正好产生一个UDP数据报，并组装成一份待发送的IP 数据报。<br>TCP面向流字符，应用程序产生的全体数据与真正发送的单个IP数据报可能没什么联系。</p>
+</li>
+<li><p>问题2：<strong>UDP的校验和怎么计算？</strong><br>答：UDP的校验和要计算首部和数据部分。首部还包括伪首部 <strong>12</strong> 字节，其中 UDP长度计算2次。</p>
+</li>
+<li><p>问题3：<strong>UDP校验和为什么要加上伪首部？</strong><br>答：为了让UDP两次检查数据是否已经正确到达目的地。IP接收正确的目的地址，传送到正确的上层程序。</p>
+</li>
+<li><p>问题4：<strong>TCP通过哪些方式保证可靠性？</strong><br>答：1. 分割数据报，TCP将引用数据分割成最适合发送的数据段。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. 确认机制，发送数据报文段后等待确认。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. 重发机制，没有收到确认包，重发数据。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. 检验和检查，保持数据丢的正确性。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. 排序，丢弃重复包，流量控制，拥塞控制。</p>
+</li>
+<li><p>问题5：<strong>TCP和UDP的区别？</strong><br>答：1. TCP面向连接，UDP面向无连接。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. TCP面向报文段，UDP面向字节流。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. TCP提供可靠的传输服务(顺序性，正确性)，UDP传输不可靠。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. TCP传输速度慢，UDP传输速度快。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. TCP对系统资源要求多(首部开销大)，UDP要求少。</p>
+</li>
+<li><p>问题6：<strong>TCP、UDP为什么存在伪首部？</strong><br>答：TCP(UDP)校验和，是根据 TCP(UDP) 数据报的伪报头计算得到的差错检验值。伪报头包含源IP地址和目的IP地址，以及来自IP数据报报头的协议。可以检验IP是否接收了正确的目的地址。<br>伪报头不会再网络中传输，校验和中包含的伪报头内容可以避免目的端错误地接收数据报。</p>
+</li>
+<li><p>问题7：<strong>为什么要3次握手，4次挥手？</strong><br>答：1. 三次握手：为了防止过期的连接请求报文段突然传送到接收端，产生错误。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. 四次挥手：为了确保数据完成传输。关闭连接时如果收到对方的FIN报文通知，仅仅表示对方没有数据发送了，但是己方仍然可以发送数据，所以需要己方发回FIN报文，完成连接关闭。</p>
+</li>
+</ul>
+<hr>
+<h1 id="书签"><a href="#书签" class="headerlink" title="书签"></a>书签</h1><p><a href="https://blog.csdn.net/sinat_38321889/article/details/79053409" target="_blank" rel="noopener">计算机网路-传输层详解</a><br><a href="https://blog.csdn.net/aa1928992772/article/details/85240358" target="_blank" rel="noopener">UDP协议的详细解析</a><br><a href="https://blog.csdn.net/qq_25843323/article/details/50471134" target="_blank" rel="noopener">传输层详解</a><br><a href="https://blog.csdn.net/guoweimelon/article/details/50878730" target="_blank" rel="noopener">TCP三次握手建立连接</a><br><a href="https://blog.csdn.net/guoweimelon/article/details/50879302" target="_blank" rel="noopener">TCP四次握手释放连接</a><br><a href="https://blog.csdn.net/gettogetto/article/details/76794879" target="_blank" rel="noopener">TCP连接的同时打开和同时关闭</a><br><a href="https://blog.csdn.net/guoweimelon/article/details/50879588" target="_blank" rel="noopener">TCP连续ARQ协议和滑动窗口协议</a><br><a href="https://blog.csdn.net/guoweimelon/article/details/50880109" target="_blank" rel="noopener">TCP的拥塞控制</a><br><a href="https://blog.csdn.net/u010425776/article/details/55006347" target="_blank" rel="noopener">计算机网络传输层知识点全覆盖</a><br><a href="https://blog.csdn.net/sinat_21112393/article/details/50810053" target="_blank" rel="noopener">TCP拥塞控制：慢开始、拥塞避免、快重传、快恢复</a><br><a href="https://blog.csdn.net/hyman_yx/article/details/52086389" target="_blank" rel="noopener">TCP中的7种定时器详解</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined" target="_blank" rel="noopener">Wanwan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2019/11/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%BB%E7%BB%93-%E2%80%94%E2%80%94-%E4%BC%A0%E8%BE%93%E5%B1%82/">http://yoursite.com/2019/11/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%BB%E7%BB%93-%E2%80%94%E2%80%94-%E4%BC%A0%E8%BE%93%E5%B1%82/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">Wanwan</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/TCP-IP/">TCP/IP    </a></div><div class="post_share"><div class="social-share" data-image="http://q0w584475.bkt.clouddn.com/NetWork/TransportLayer/TCPUDP.jpg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2019/11/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%80%BB%E7%BB%93-%E2%80%94%E2%80%94-%E7%BD%91%E7%BB%9C%E5%B1%82/"><img class="next_cover lazyload" data-src="http://q0w584475.bkt.clouddn.com/NetWork/NetWorkLayer/IP.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>计算机网络总结 —— 网络层</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/11/09/计算机网络总结 —— 数据链路层/" title="计算机网络总结 —— 数据链路层"><img class="relatedPosts_cover lazyload"data-src="http://q0w584475.bkt.clouddn.com/NetWork/DataLinkLayer/ARP.jpg"><div class="relatedPosts_title">计算机网络总结 —— 数据链路层</div></a></div><div class="relatedPosts_item"><a href="/2019/11/17/计算机网络总结-——-网络层/" title="计算机网络总结 —— 网络层"><img class="relatedPosts_cover lazyload"data-src="http://q0w584475.bkt.clouddn.com/NetWork/NetWorkLayer/IP.jpg"><div class="relatedPosts_title">计算机网络总结 —— 网络层</div></a></div></div><div class="clear_both"></div></div></div></div><footer id="footer" style="background-image: url(http://q0w584475.bkt.clouddn.com/image/cover/scene.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2019 By Wanwan</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="true" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script></body></html>
